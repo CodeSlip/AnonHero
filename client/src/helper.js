@@ -5,7 +5,6 @@ const torus = new Torus()
 const web3Obj = {
   web3: new Web3(),
   setweb3: function(provider) {
-      
     const web3Inst = new Web3(provider)
     web3Obj.web3 = web3Inst
     sessionStorage.setItem('pageUsingTorus', true)

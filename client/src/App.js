@@ -1,8 +1,13 @@
 import React, { Component } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import SimpleStorageContract from "./contracts/SimpleStorage.json";
+// import getWeb3 from "./utils/getWeb3";
 import {Button} from 'reactstrap';
+
 import "./App.css";
 import web3Obj from './helper'
+
+// Components
+import Map from './Map/Map';
 
 class App extends React.Component {
   state = {
@@ -15,10 +20,10 @@ class App extends React.Component {
     const isTorus = sessionStorage.getItem('pageUsingTorus')
     if (isTorus) {
       web3Obj.initialize().then(() => {
-        this.setStateInfo()
-      })
-      this.setState({
-        loggedIn: true
+        this.setStateInfo();
+        this.setState({
+          loggedIn: true
+        })
       })
     }
     if (!isTorus) {
@@ -39,16 +44,13 @@ class App extends React.Component {
   }
 
   enableTorus = async () => {
-    try {
-      await web3Obj.initialize()
-      this.setStateInfo()
-      this.setState({
-        loggedIn: true
-      })
-    } catch (error) {
-      console.error(error)
+      await web3Obj.initialize().then(()=>{
+        this.setStateInfo()
+        this.setState({
+          loggedIn: true
+        })
+      }).catch((error)=>console.log(error))
     }
-  }
 
   disableTorus = async () => {
     try {
@@ -68,22 +70,25 @@ class App extends React.Component {
       <div className="App">
         {this.state.loggedIn === true ? 
           <div>
-            <p>
-              Let's get it done
-            </p>
-              <Button onClick={this.disableTorus}>Logout</Button>
-              <br/><br/>
-              <div>
-                {this.state.account ? <div>Account: {this.state.account}</div> : null}
-                {(this.state.balance && (this.state.balance != 0)) ? <div>Balance: {this.state.balance}</div> : null}
+            <Map />
+            <div className="default-padding">
+              <p>
+                Let's get it done
+              </p>
+                <Button onClick={this.disableTorus}>Logout</Button>
+                <br/><br/>
+                <div>
+                  {this.state.account ? <div>Account: {this.state.account}</div> : null}
+                  {(this.state.balance && (this.state.balance != 0)) ? <div>Balance: {this.state.balance}</div> : null}
+                </div>
               </div>
           </div>
           :
-          <div>
+          <div className="login-container default-padding">
+            <h1 className="logo">Anon Hero</h1>
             <div>
-              <Button onClick={this.enableTorus}>Login</Button>
+              <Button  onClick={this.enableTorus}>Login</Button>
             </div>
-            
           </div>
         }
       </div>

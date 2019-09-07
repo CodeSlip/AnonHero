@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -10,8 +11,7 @@ const isTorus = sessionStorage.getItem('pageUsingTorus')
 if (isTorus === 'true') {
   import('@toruslabs/torus-embed').then(() => {
     console.log('rehydrated Torus')
-    web3Obj.setweb3()
-   
+    web3Obj.setweb3({networkUrl:"http://ethboston1.skalenodes.com:10145",chainId: "1", networkName:"Skale"}, (res)=> console.log(res))
   })
 }
 // If you want your app to work offline and load faster, you can change
