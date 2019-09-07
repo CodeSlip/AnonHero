@@ -1,0 +1,6 @@
+.map-view .map-submit-btn{
+    position: absolute;
+    bottom: 14px;
+    right: 10px;
+    z-index: 2;
+}
