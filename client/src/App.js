@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // import SimpleStorageContract from "./contracts/SimpleStorage.json";
 // import getWeb3 from "./utils/getWeb3";
 import {Button} from 'reactstrap';
+import FileUpload from "./Files/FileUpload";
 
 import "./App.css";
 import web3Obj from './helper'
@@ -24,9 +25,9 @@ class App extends React.Component {
     if (isTorus) {
       web3Obj.initialize().then(() => {
         this.setStateInfo()
-      })
-      this.setState({
-        loggedIn: true
+        this.setState({
+          loggedIn: true
+        })
       })
     }
     if (!isTorus) {
@@ -37,7 +38,6 @@ class App extends React.Component {
   }
 
   setStateInfo = () => {
-    console.log("current status", web3Obj.web3)
     web3Obj.web3.eth.getAccounts().then(accounts => {
       this.setState({ account: accounts[0] })
       web3Obj.web3.eth.getBalance(accounts[0]).then(balance => {
@@ -64,16 +64,18 @@ class App extends React.Component {
         this.setState({
           loggedIn: false
         })
+        sessionStorage.clear();
       })
     } catch (error) {
       console.error(error)
     }
   }
   checkMapLocation = (lat, long, distance) => {
-
     if(distance < .3){
       this.setState({
-        onLocation: true
+        onLocation: true,
+        userLat: lat,
+        userLong: long
       })
     }else{
       this.setState({
@@ -99,8 +101,7 @@ class App extends React.Component {
               <div className="account">{this.state.account ? <p>Account: {this.state.account.slice(0,8)}...</p> : null}</div>
             </div>
             <Map checkMapLocation={this.checkMapLocation}/>
-
-          </div>
+            </div>
           :
           <div className="login-container default-padding">
             <h1 className="logo">Anon Hero</h1>

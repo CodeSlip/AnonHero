@@ -1,0 +1,9 @@
+.file-upload {
+  display: flex;
+  flex-direction: column;
+}
+
+.file-button {
+  padding: 10px;
+  border: 1px solid green;
+}
