@@ -2,7 +2,6 @@ import React, { Component } from "react";
 // import SimpleStorageContract from "./contracts/SimpleStorage.json";
 // import getWeb3 from "./utils/getWeb3";
 import {Button} from 'reactstrap';
-
 import "./App.css";
 import web3Obj from './helper'
 
@@ -21,9 +20,9 @@ class App extends React.Component {
     if (isTorus) {
       web3Obj.initialize().then(() => {
         this.setStateInfo()
-      })
-      this.setState({
-        loggedIn: true
+        this.setState({
+          loggedIn: true
+        })
       })
     }
     if (!isTorus) {
@@ -34,7 +33,6 @@ class App extends React.Component {
   }
 
   setStateInfo = () => {
-    console.log("current status", web3Obj.web3)
     web3Obj.web3.eth.getAccounts().then(accounts => {
       this.setState({ account: accounts[0] })
       web3Obj.web3.eth.getBalance(accounts[0]).then(balance => {
@@ -61,6 +59,7 @@ class App extends React.Component {
         this.setState({
           loggedIn: false
         })
+        sessionStorage.clear();
       })
     } catch (error) {
       console.error(error)
