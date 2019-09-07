@@ -15,6 +15,8 @@ class App extends React.Component {
     balance: '',
     page:'Map',
     loggedIn: false,
+    userLocation: {lat: '', long: ''},
+    distance:''
   }
 
   componentDidMount() {
@@ -67,8 +69,17 @@ class App extends React.Component {
       console.error(error)
     }
   }
-  getMapLocation = (location) => {
-    console.log(location)
+  checkMapLocation = (lat, long, distance) => {
+
+    if(distance < .3){
+      this.setState({
+        onLocation: true
+      })
+    }else{
+      this.setState({
+        onLocation: false
+      })
+    }
 
   }
   
@@ -84,7 +95,7 @@ class App extends React.Component {
                 <h4>AnonHero | {page} </h4>
                 <Button className='logout-btn' onClick={this.disableTorus}>Logout</Button>
             </div>
-            <Map getMapLocation={this.getMapLocation}/>
+            <Map checkMapLocation={this.checkMapLocation}/>
             {/* <div className="default-padding">
                 <div>
                   {this.state.account ? <div>Account: {this.state.account}</div> : null}
