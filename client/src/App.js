@@ -3,6 +3,7 @@ import {Button} from 'reactstrap';
 import "./App.css";
 import web3Obj from './helper'
 import Map from './Map/Map';
+import FileUpload from "./Files/FileUpload";
 
 class App extends React.Component {
   state = {
@@ -84,6 +85,7 @@ class App extends React.Component {
     let {page} = this.state;
     return (
       <div className="App">
+        <FileUpload />
         {this.state.loggedIn === true ? 
           <div style={{height: '100%'}}> 
             <div className="page-header">
