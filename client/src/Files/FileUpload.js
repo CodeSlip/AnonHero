@@ -13,7 +13,6 @@ function FileUpload() {
     let privateKey =
       "0x1E25C8731DE51F919A23EF70749251BB4F57D80BFD6468FC450FD79D39E3B87C"; // testnet pk
     let account = "0xcC4c3FBfA2716D74B3ED6514ca8Ba99d7f941dF9"; // testnet addr
-
     const upload = fileStorage.uploadFile(
       account,
       fileName,
@@ -33,7 +32,6 @@ function FileUpload() {
     let file = document.getElementById("files").files[0];
     setFileName(file.name);
     let reader = new FileReader();
-
     reader.onload = async function(e) {
       const arrayBuffer = reader.result;
       const bytes = new Uint8Array(arrayBuffer);

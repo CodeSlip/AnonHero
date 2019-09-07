@@ -1,13 +1,7 @@
 import React, { Component } from "react";
-// import SimpleStorageContract from "./contracts/SimpleStorage.json";
-// import getWeb3 from "./utils/getWeb3";
 import {Button} from 'reactstrap';
-import FileUpload from "./Files/FileUpload";
-
 import "./App.css";
 import web3Obj from './helper'
-
-// Components
 import Map from './Map/Map';
 
 class App extends React.Component {
@@ -70,6 +64,7 @@ class App extends React.Component {
       console.error(error)
     }
   }
+
   checkMapLocation = (lat, long, distance) => {
     if(distance < .3){
       this.setState({
@@ -85,9 +80,7 @@ class App extends React.Component {
 
   }
   
-  
   render() {
-    console.log("current state of loggedIn",this.state.loggedIn)
     let {page} = this.state;
     return (
       <div className="App">

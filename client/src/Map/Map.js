@@ -60,13 +60,11 @@ class Map extends Component {
     }
 
     onViewportChange = viewport => { 
-        console.log('change')
         const {width, height, ...etc} = viewport
         this.setState({viewport: etc})
       } 
 
     render() {
-        console.log(this.props, 'map')
         return (
             <div className='map-view' style={{height: 'calc(100% - 90px)', width: '100%'}}>
                 <ReactMapGL
