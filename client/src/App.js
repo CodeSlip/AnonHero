@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import SimpleStorageContract from "./contracts/SimpleStorage.json";
 import getWeb3 from "./utils/getWeb3";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Button} from 'reactstrap';
 import "./App.css";
 
 class App extends Component {
@@ -55,6 +56,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Good to Go!</h1>
+        <Button>Testing</Button>
         <p>Your Truffle Box is installed and ready.</p>
         <h2>Smart Contract Example</h2>
         <p>
