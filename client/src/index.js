@@ -11,7 +11,7 @@ if (isTorus === 'true') {
   import('@toruslabs/torus-embed').then(() => {
     console.log('rehydrated Torus')
     web3Obj.setweb3()
-    // set store accounts from here ideally
+   
   })
 }
 // If you want your app to work offline and load faster, you can change

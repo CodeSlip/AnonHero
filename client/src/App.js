@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-// import SimpleStorageContract from "./contracts/SimpleStorage.json";
-// import getWeb3 from "./utils/getWeb3";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button} from 'reactstrap';
 import "./App.css";
