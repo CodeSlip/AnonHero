@@ -15,7 +15,6 @@ class App extends React.Component {
 
   componentDidMount() {
     const isTorus = sessionStorage.getItem('pageUsingTorus')
-
     if (isTorus) {
       web3Obj.initialize().then(() => {
         this.setStateInfo()
@@ -24,9 +23,15 @@ class App extends React.Component {
         loggedIn: true
       })
     }
+    if (!isTorus) {
+      this.setState({
+        loggedIn: false
+      })
+    }
   }
 
   setStateInfo = () => {
+    console.log("current status", web3Obj.web3)
     web3Obj.web3.eth.getAccounts().then(accounts => {
       this.setState({ account: accounts[0] })
       web3Obj.web3.eth.getBalance(accounts[0]).then(balance => {
@@ -49,36 +54,38 @@ class App extends React.Component {
 
   disableTorus = async () => {
     try {
-      await web3Obj.logout()
-      this.setStateInfo()
-      this.setState({
-        loggedIn: false
+      await web3Obj.logout().then(()=>{
+        this.setState({
+          loggedIn: false
+        })
       })
     } catch (error) {
       console.error(error)
     }
   }
-
+  
   render() {
+    console.log("current state of loggedIn",this.state.loggedIn)
     return (
       <div className="App">
-        { this.state.loggedIn == true ? 
+        {this.state.loggedIn === true ? 
           <div>
             <p>
               Let's get it done
             </p>
               <Button onClick={this.disableTorus}>Logout</Button>
+              <br/><br/>
+              <div>
+                {this.state.account ? <div>Account: {this.state.account}</div> : null}
+                {(this.state.balance && (this.state.balance != 0)) ? <div>Balance: {this.state.balance}</div> : null}
+              </div>
           </div>
           :
           <div>
             <div>
               <Button onClick={this.enableTorus}>Login</Button>
             </div>
-            <div>
-              {/* <button onClick={this.enableTorus}>Enable Torus</button> */}
-              <div>Account: {this.state.account}</div>
-              <div>Balance: {this.state.balance}</div>
-            </div>
+            
           </div>
         }
       </div>
