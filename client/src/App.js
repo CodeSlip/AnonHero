@@ -92,16 +92,14 @@ class App extends React.Component {
         {this.state.loggedIn === true ? 
           <div style={{height: '100%'}}> 
             <div className="page-header">
+              <div className="header"> 
                 <h4>AnonHero | {page} </h4>
                 <Button className='logout-btn' onClick={this.disableTorus}>Logout</Button>
+              </div>
+              <div className="account">{this.state.account ? <p>Account: {this.state.account.slice(0,8)}...</p> : null}</div>
             </div>
             <Map checkMapLocation={this.checkMapLocation}/>
-            {/* <div className="default-padding">
-                <div>
-                  {this.state.account ? <div>Account: {this.state.account}</div> : null}
-                  {(this.state.balance && (this.state.balance != 0)) ? <div>Balance: {this.state.balance}</div> : null}
-                </div>
-              </div> */}
+
           </div>
           :
           <div className="login-container default-padding">
