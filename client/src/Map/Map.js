@@ -12,6 +12,8 @@ class Map extends Component {
     constructor(props){
         super(props);
         this.state = {
+            status:'default',
+            distance: null,
             isInLocation: false,
             viewport: {
               width: '100%',
@@ -26,11 +28,26 @@ class Map extends Component {
     }
     checkLocation = (e) => {
         e.preventDefault();
-      let dist =  this.checkDistance(this.state.latitude,this.state.longitude, this.state.viewport.latitude,this.state.viewport.longitude);
-      this.setState({
-          distance: dist
-      })
-      this.props.checkMapLocation(this.props.coords.latitude, this.props.coords.longitude, dist)
+        let dist =  this.checkDistance(this.state.latitude,this.state.longitude, this.state.viewport.latitude,this.state.viewport.longitude);
+        this.setState({
+            distance: dist
+        })
+        this.props.checkMapLocation(this.props.coords.latitude, this.props.coords.longitude, dist)
+        this.setState({
+            status: 'loading'
+        }, () => {
+            setTimeout(()=>{
+                if(this.state.distance <= .3){
+                    this.setState({
+                        status: 'success'
+                    })
+                }else{
+                    this.setState({
+                        status: 'failed'
+                    })
+                }
+            }, 500)
+        })
     }
 
 
@@ -76,10 +93,14 @@ class Map extends Component {
                     {...this.state.viewport}
                     onViewportChange={(viewport) => this.setState({viewport})}>
                         <Marker draggable={false} latitude={this.state.viewport.latitude} longitude={this.state.viewport.longitude} offsetLeft={-20} offsetTop={-10}>
-                            <div style={{color: '#f00'}}>You are here</div>
+                            <div style={{color: '#f00'}}>Meeting Point</div>
                         </Marker>
                     </ReactMapGL>
-                <Button className={"map-submit-btn" } onClick={this.checkLocation} >Set Location</Button>
+                <Button 
+                    className={"map-submit-btn " + (this.state.status === 'loading' ? (this.state.status === 'success' ? 'success-btn' : 'failed-btn') : 'loading-btn') } 
+                    onClick={this.checkLocation}>
+                    Set Location
+                </Button>
             </div>
         );
     }

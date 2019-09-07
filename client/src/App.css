@@ -48,7 +48,13 @@
   font-size: 14px;
 }
 
+.success-btn{
+  background-color: #4BB543;
+}
 
+.failed-btn{
+  background-color: #D04349;
+}
 
 
 
