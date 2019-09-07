@@ -72,12 +72,11 @@ class App extends React.Component {
         userLat: lat,
         userLong: long
       })
-    }else{
+    } else {
       this.setState({
         onLocation: false
       })
     }
-
   }
   
   render() {
