@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 // import SimpleStorageContract from "./contracts/SimpleStorage.json";
 // import getWeb3 from "./utils/getWeb3";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button} from 'reactstrap';
+
 import "./App.css";
 import web3Obj from './helper'
+
+// Components
+import Map from './Map/Map';
 
 class App extends React.Component {
   state = {
@@ -62,17 +65,21 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+            <Map/>
+
         { this.state.loggedIn == true ? 
           <div>
             <p>
               Let's get it done
             </p>
+
               <Button onClick={this.disable}>Logout</Button>
           </div>
           :
           <div>
+            <h1 className="logo">Anon Hero</h1>
             <div>
-              <Button onClick={this.enableTorus}>Login</Button>
+              <Button className="login-btn" onClick={this.enableTorus}>Login</Button>
             </div>
             <div>
               {/* <button onClick={this.enableTorus}>Enable Torus</button> */}
