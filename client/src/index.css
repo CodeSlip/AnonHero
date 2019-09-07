@@ -51,4 +51,14 @@ button, .btn{
   background-color: var(--light-blue);
 }
 
+.success-btn{
+  background-color: #4BB543;
+}
+
+.fail-btn{
+  background-color: #D04349;
+}
+
+
+
 

@@ -43,10 +43,10 @@ class Map extends Component {
                     })
                 }else{
                     this.setState({
-                        status: 'failed'
+                        status: 'fail'
                     })
                 }
-            }, 500)
+            }, 2000)
         })
     }
 
@@ -97,8 +97,9 @@ class Map extends Component {
                         </Marker>
                     </ReactMapGL>
                 <Button 
-                    className={"map-submit-btn " + (this.state.status === 'loading' ? (this.state.status === 'success' ? 'success-btn' : 'failed-btn') : 'loading-btn') } 
+                    className={"map-submit-btn " + (this.state.status === 'loading' ? ' loading-btn ' : '') + (this.state.status === 'success' ? 'success-btn ' : '') + (this.state.status === 'fail' ? 'fail-btn' : '')} 
                     onClick={this.checkLocation}>
+
                     Set Location
                 </Button>
             </div>
