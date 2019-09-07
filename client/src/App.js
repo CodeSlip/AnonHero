@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // import SimpleStorageContract from "./contracts/SimpleStorage.json";
 // import getWeb3 from "./utils/getWeb3";
 import {Button} from 'reactstrap';
+import FileUpload from "./Files/FileUpload";
 
 import "./App.css";
 import web3Obj from './helper'
@@ -66,11 +67,19 @@ class App extends React.Component {
       console.error(error)
     }
   }
+
+  getGeo = () => {
+
+    const loc = navigator.geolocation.getCurrentPosition(pos => {
+      console.log("pos", pos)
+    });
+  }
   
   render() {
-    console.log("current state of loggedIn",this.state.loggedIn)
     return (
       <div className="App">
+        <FileUpload />
+        <div onClick={this.getGeo}>get geo</div>
         {this.state.loggedIn === true ? 
           <div>
             <p>

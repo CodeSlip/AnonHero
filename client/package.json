@@ -10,7 +10,8 @@
     "react-geolocated": "^2.5.1",
     "react-scripts": "2.1.1",
     "reactstrap": "^8.0.1",
-    "web3": "^1.0.0-beta.37"
+    "web3": "^1.0.0-beta.37",
+    "@skalenetwork/filestorage.js": "0.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
