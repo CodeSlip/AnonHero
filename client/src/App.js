@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import {Button} from 'reactstrap';
 import "./App.css";
 import web3Obj from './helper'
-import Map from './Map/Map';
+import UploadContentView from './UploadContent/UploadContent';
+import MapView from './Map/Map';
 import FileUpload from "./Files/FileUpload";
 
 class App extends React.Component {
@@ -85,14 +86,15 @@ class App extends React.Component {
     let {page} = this.state;
     return (
       <div className="App">
-        <FileUpload />
+        {/* <FileUpload /> */}
         {this.state.loggedIn === true ? 
           <div style={{height: '100%'}}> 
             <div className="page-header">
                 <h4>AnonHero | {page} </h4>
                 <Button className='logout-btn' onClick={this.disableTorus}>Logout</Button>
             </div>
-            <Map checkMapLocation={this.checkMapLocation}/>
+            {/* <MapView checkMapLocation={this.checkMapLocation}/> */}
+            <UploadContentView />
             </div>
           :
           <div className="login-container default-padding">
