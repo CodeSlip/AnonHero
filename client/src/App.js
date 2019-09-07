@@ -67,7 +67,7 @@ class App extends React.Component {
             <p>
               Let's get it done
             </p>
-              <Button onClick={this.disable}>Logout</Button>
+              <Button onClick={this.disableTorus}>Logout</Button>
           </div>
           :
           <div>
