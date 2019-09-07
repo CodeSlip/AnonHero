@@ -6,9 +6,21 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+
+:root {
+  --off-black: #191D26;
+  --light-gray: #A8B1BE;
+  --gray: #8E93A4;
+  --light-blue: #1147A7;
+  --blue: #113A94;
+  --dark-blue: #032B83;
+  --link-blue: #61dafb;
 }
