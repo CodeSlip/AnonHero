@@ -69,7 +69,6 @@ class App extends React.Component {
   }
 
   getGeo = () => {
-
     const loc = navigator.geolocation.getCurrentPosition(pos => {
       console.log("pos", pos)
     });
@@ -78,8 +77,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <FileUpload />
-        <div onClick={this.getGeo}>get geo</div>
+        {/* <div onClick={this.getGeo}>get geo</div> */}
         {this.state.loggedIn === true ? 
           <div>
             <Map />
@@ -93,6 +91,7 @@ class App extends React.Component {
                   {this.state.account ? <div>Account: {this.state.account}</div> : null}
                   {(this.state.balance && (this.state.balance != 0)) ? <div>Balance: {this.state.balance}</div> : null}
                 </div>
+                {this.state.loggedIn ? <FileUpload /> : null}
               </div>
           </div>
           :
