@@ -30,7 +30,7 @@ class Map extends Component {
       this.setState({
           distance: dist
       })
-      this.props.checkMapLocation(this.props.coords.latitude, this.props.coords.longitude, dist )
+      this.props.checkMapLocation(this.props.coords.latitude, this.props.coords.longitude, dist)
     }
 
 
