@@ -2,15 +2,16 @@ import React, { Component } from "react";
 import {Button} from 'reactstrap';
 import "./App.css";
 import web3Obj from './helper'
-
-// Components
 import Map from './Map/Map';
 
 class App extends React.Component {
   state = {
     account: '',
     balance: '',
+    page:'Map',
     loggedIn: false,
+    userLocation: {lat: '', long: ''},
+    distance:''
   }
 
   componentDidMount() {
@@ -60,31 +61,38 @@ class App extends React.Component {
       console.error(error)
     }
   }
+
+  checkMapLocation = (lat, long, distance) => {
+    if(distance < .3){
+      this.setState({
+        onLocation: true,
+        userLat: lat,
+        userLong: long
+      })
+    } else {
+      this.setState({
+        onLocation: false
+      })
+    }
+  }
   
   render() {
-    console.log("current state of loggedIn",this.state.loggedIn)
+    let {page} = this.state;
     return (
       <div className="App">
         {this.state.loggedIn === true ? 
-          <div>
-            <Map />
-            <div className="default-padding">
-              <p>
-                Let's get it done
-              </p>
-                <Button onClick={this.disableTorus}>Logout</Button>
-                <br/><br/>
-                <div>
-                  {this.state.account ? <div>Account: {this.state.account}</div> : null}
-                  {(this.state.balance && (this.state.balance != 0)) ? <div>Balance: {this.state.balance}</div> : null}
-                </div>
-              </div>
-          </div>
+          <div style={{height: '100%'}}> 
+            <div className="page-header">
+                <h4>AnonHero | {page} </h4>
+                <Button className='logout-btn' onClick={this.disableTorus}>Logout</Button>
+            </div>
+            <Map checkMapLocation={this.checkMapLocation}/>
+            </div>
           :
           <div className="login-container default-padding">
             <h1 className="logo">Anon Hero</h1>
             <div>
-              <Button  onClick={this.enableTorus}>Login</Button>
+              <Button  className="login-btn" onClick={this.enableTorus}>Login</Button>
             </div>
           </div>
         }

@@ -3,11 +3,11 @@
   max-width: 400px;
   width:100%;
   margin: 0 auto;
-
   background-color: var(--off-black);
   color: var(--light-gray);
   min-height: 650px;
   height:100vh;
+  position: relative;
 }
 
 
@@ -21,18 +21,29 @@
   margin-top: 40%;
 }
 
+.logout-btn{
+  border: 2px solid var(--light-gray);
+  background: transparent;
+}
+.logout-btn.btn:hover{
+  background: none;
+  border: 2px solid var(--light-gray);
+}
 
 .page-header{
   text-align: left;
-  margin-bottom: 20px;
   background-color: var(--light-blue);
-
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.page-header h4{
 
+.page-header {
   padding: 20px 15px;
-
 }
+
+
+
 
 
 
