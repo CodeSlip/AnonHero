@@ -40,7 +40,6 @@ function FileUpload() {
     let file = document.getElementById("files").files[0];
     setFileName(file.name);
     let reader = new FileReader();
-
     reader.onload = async function(e) {
       const arrayBuffer = reader.result;
       const bytes = new Uint8Array(arrayBuffer);
