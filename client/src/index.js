@@ -11,7 +11,7 @@ const isTorus = sessionStorage.getItem('pageUsingTorus')
 if (isTorus === 'true') {
   import('@toruslabs/torus-embed').then(() => {
     console.log('rehydrated Torus')
-    web3Obj.setweb3({networkUrl:"http://ethboston1.skalenodes.com:10145",chainId: "1", networkName:"Skale"}, (res)=> console.log(res))
+    web3Obj.setweb3()
   })
 }
 // If you want your app to work offline and load faster, you can change
