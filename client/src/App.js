@@ -22,9 +22,9 @@ class App extends React.Component {
     if (isTorus) {
       web3Obj.initialize().then(() => {
         this.setStateInfo()
-      })
-      this.setState({
-        loggedIn: true
+        this.setState({
+          loggedIn: true
+        })
       })
     }
     if (!isTorus) {
@@ -35,7 +35,6 @@ class App extends React.Component {
   }
 
   setStateInfo = () => {
-    console.log("current status", web3Obj.web3)
     web3Obj.web3.eth.getAccounts().then(accounts => {
       this.setState({ account: accounts[0] })
       web3Obj.web3.eth.getBalance(accounts[0]).then(balance => {
@@ -62,6 +61,7 @@ class App extends React.Component {
         this.setState({
           loggedIn: false
         })
+        sessionStorage.clear();
       })
     } catch (error) {
       console.error(error)
@@ -82,23 +82,25 @@ class App extends React.Component {
         <div onClick={this.getGeo}>get geo</div>
         {this.state.loggedIn === true ? 
           <div>
-            <p>
-              Let's get it done
-            </p>
-              <Button onClick={this.disableTorus}>Logout</Button>
-              <br/><br/>
-              <div>
-                {this.state.account ? <div>Account: {this.state.account}</div> : null}
-                {(this.state.balance && (this.state.balance != 0)) ? <div>Balance: {this.state.balance}</div> : null}
+            <Map />
+            <div className="default-padding">
+              <p>
+                Let's get it done
+              </p>
+                <Button onClick={this.disableTorus}>Logout</Button>
+                <br/><br/>
+                <div>
+                  {this.state.account ? <div>Account: {this.state.account}</div> : null}
+                  {(this.state.balance && (this.state.balance != 0)) ? <div>Balance: {this.state.balance}</div> : null}
+                </div>
               </div>
           </div>
           :
-          <div className="login-container">
+          <div className="login-container default-padding">
             <h1 className="logo">Anon Hero</h1>
             <div>
               <Button  onClick={this.enableTorus}>Login</Button>
             </div>
-            
           </div>
         }
       </div>

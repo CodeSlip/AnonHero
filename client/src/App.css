@@ -3,7 +3,7 @@
   max-width: 400px;
   width:100%;
   margin: 0 auto;
-  padding: 20px 15px;
+
   background-color: var(--off-black);
   color: var(--light-gray);
   min-height: 650px;
@@ -20,6 +20,22 @@
 .login-container{
   margin-top: 40%;
 }
+
+
+.page-header{
+  text-align: left;
+  margin-bottom: 20px;
+  background-color: var(--light-blue);
+
+}
+.page-header h4{
+
+  padding: 20px 15px;
+
+}
+
+
+
 
 
 
