@@ -73,23 +73,25 @@ class App extends React.Component {
       <div className="App">
         {this.state.loggedIn === true ? 
           <div>
-            <p>
-              Let's get it done
-            </p>
-              <Button onClick={this.disableTorus}>Logout</Button>
-              <br/><br/>
-              <div>
-                {this.state.account ? <div>Account: {this.state.account}</div> : null}
-                {(this.state.balance && (this.state.balance != 0)) ? <div>Balance: {this.state.balance}</div> : null}
+            <Map />
+            <div className="default-padding">
+              <p>
+                Let's get it done
+              </p>
+                <Button onClick={this.disableTorus}>Logout</Button>
+                <br/><br/>
+                <div>
+                  {this.state.account ? <div>Account: {this.state.account}</div> : null}
+                  {(this.state.balance && (this.state.balance != 0)) ? <div>Balance: {this.state.balance}</div> : null}
+                </div>
               </div>
           </div>
           :
-          <div className="login-container">
+          <div className="login-container default-padding">
             <h1 className="logo">Anon Hero</h1>
             <div>
               <Button  onClick={this.enableTorus}>Login</Button>
             </div>
-            
           </div>
         }
       </div>
