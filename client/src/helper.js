@@ -1,4 +1,6 @@
 import Web3 from 'web3'
+import Torus from '@toruslabs/torus-embed'
+const torus = new Torus()
 
 const web3Obj = {
   web3: new Web3(),
@@ -8,17 +10,11 @@ const web3Obj = {
     sessionStorage.setItem('pageUsingTorus', true)
   },
   initialize: async function() {
-    const defaultTorus = await import('@toruslabs/torus-embed')
-    const Torus = defaultTorus.default
-    const torus = new Torus()
     await torus.init()
     await torus.login()
     web3Obj.setweb3(torus.provider)
   },
   logout: async function() {
-    const defaultTorus = await import('@toruslabs/torus-embed')
-    const Torus = defaultTorus.default
-    const torus = new Torus()
     await torus.logout()
   }
 }

@@ -32,18 +32,14 @@ button, .btn{
   outline: none;
   border: none;
   font-family: 'Exo 2', monospace;
-
-}
-
-.login-btn{
   padding: 10px 20px;
   border-radius: 25px;
+
 }
 
 .btn:hover{
   background-image: none;
   background-color: var(--light-blue);
-  box-shadow: 0px 1px 15px var(--dark-blue);
 }
 
 
