@@ -1,72 +1,95 @@
 import React, { Component } from "react";
-import SimpleStorageContract from "./contracts/SimpleStorage.json";
-import getWeb3 from "./utils/getWeb3";
-
+// import SimpleStorageContract from "./contracts/SimpleStorage.json";
+// import getWeb3 from "./utils/getWeb3";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Button} from 'reactstrap';
 import "./App.css";
+import web3Obj from './helper'
 
-class App extends Component {
-  state = { storageValue: 0, web3: null, accounts: null, contract: null };
+class App extends React.Component {
+  state = {
+    account: '',
+    balance: '',
+    loggedIn: false,
+  }
 
-  componentDidMount = async () => {
+  componentDidMount() {
+    const isTorus = sessionStorage.getItem('pageUsingTorus')
+    if (isTorus) {
+      web3Obj.initialize().then(() => {
+        this.setStateInfo()
+      })
+      this.setState({
+        loggedIn: true
+      })
+    }
+    if (!isTorus) {
+      this.setState({
+        loggedIn: false
+      })
+    }
+  }
+
+  setStateInfo = () => {
+    console.log("current status", web3Obj.web3)
+    web3Obj.web3.eth.getAccounts().then(accounts => {
+      this.setState({ account: accounts[0] })
+      web3Obj.web3.eth.getBalance(accounts[0]).then(balance => {
+        this.setState({ balance: balance })
+      })
+    })
+  }
+
+  enableTorus = async () => {
     try {
-      // Get network provider and web3 instance.
-      const web3 = await getWeb3();
-
-      // Use web3 to get the user's accounts.
-      const accounts = await web3.eth.getAccounts();
-
-      // Get the contract instance.
-      const networkId = await web3.eth.net.getId();
-      const deployedNetwork = SimpleStorageContract.networks[networkId];
-      const instance = new web3.eth.Contract(
-        SimpleStorageContract.abi,
-        deployedNetwork && deployedNetwork.address,
-      );
-
-      // Set web3, accounts, and contract to the state, and then proceed with an
-      // example of interacting with the contract's methods.
-      this.setState({ web3, accounts, contract: instance }, this.runExample);
+      await web3Obj.initialize()
+      this.setStateInfo()
+      this.setState({
+        loggedIn: true
+      })
     } catch (error) {
-      // Catch any errors for any of the above operations.
-      alert(
-        `Failed to load web3, accounts, or contract. Check console for details.`,
-      );
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
-  runExample = async () => {
-    const { accounts, contract } = this.state;
-
-    // Stores a given value, 5 by default.
-    await contract.methods.set(5).send({ from: accounts[0] });
-
-    // Get the value from the contract to prove it worked.
-    const response = await contract.methods.get().call();
-
-    // Update state with the result.
-    this.setState({ storageValue: response });
-  };
-
+  disableTorus = async () => {
+    try {
+      await web3Obj.logout().then(()=>{
+        this.setState({
+          loggedIn: false
+        })
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  
   render() {
-    if (!this.state.web3) {
-      return <div>Loading Web3, accounts, and contract...</div>;
-    }
+    console.log("current state of loggedIn",this.state.loggedIn)
     return (
       <div className="App">
-        <h1>Good to Go!</h1>
-        <p>Your Truffle Box is installed and ready.</p>
-        <h2>Smart Contract Example</h2>
-        <p>
-          If your contracts compiled and migrated successfully, below will show
-          a stored value of 5 (by default).
-        </p>
-        <p>
-          Try changing the value stored on <strong>line 40</strong> of App.js.
-        </p>
-        <div>The stored value is: {this.state.storageValue}</div>
+        {this.state.loggedIn === true ? 
+          <div>
+            <p>
+              Let's get it done
+            </p>
+              <Button onClick={this.disableTorus}>Logout</Button>
+              <br/><br/>
+              <div>
+                {this.state.account ? <div>Account: {this.state.account}</div> : null}
+                {(this.state.balance && (this.state.balance != 0)) ? <div>Balance: {this.state.balance}</div> : null}
+              </div>
+          </div>
+          :
+          <div>
+            <div>
+              <Button onClick={this.enableTorus}>Login</Button>
+            </div>
+            
+          </div>
+        }
       </div>
-    );
+    )
   }
 }
 
