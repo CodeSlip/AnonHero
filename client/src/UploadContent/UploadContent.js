@@ -3,13 +3,14 @@ import { _getEvent, _createEvent, _createPost, _getPost } from "../contract";
 import { web3 } from "../contract";
 import "./UploadContent.css";
 
-import TwitterBtn from '../twitter/twitterButton';
+import TwitterBtn from '../Twitter/twitterButton';
 
 import { Form, Button } from "reactstrap";
 
 import Web3 from "web3";
 
 const FileStorage = require("@skalenetwork/filestorage.js/src/index");
+// let fileStorage = new FileStorage("http://157.245.138.108:2234/");
 let fileStorage = new FileStorage("https://ethboston1.skalenodes.com:10150");
 
 // const web3Provider = new Web3.providers.HttpProvider(
