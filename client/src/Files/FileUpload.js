@@ -1,8 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, Component } from "react";
+import Web3 from "web3";
+import { _createEvent } from "../contract"
 import "./Files.css";
 
 const FileStorage = require("@skalenetwork/filestorage.js/src/index");
 let fileStorage = new FileStorage("http://ethboston1.skalenodes.com:10145");
+
+const web3Provider = new Web3.providers.HttpProvider(
+  "http://ethboston1.skalenodes.com:10145"
+);
+let web3 = new Web3(web3Provider);
 
 function FileUpload() {
   const [bytesToUpload, setBytesToUpload] = useState(null);
@@ -13,18 +20,13 @@ function FileUpload() {
     let privateKey =
       "0x1E25C8731DE51F919A23EF70749251BB4F57D80BFD6468FC450FD79D39E3B87C"; // testnet pk
     let account = "0xcC4c3FBfA2716D74B3ED6514ca8Ba99d7f941dF9"; // testnet addr
-    const upload = fileStorage.uploadFile(
-      account,
-      fileName,
-      bytesToUpload,
-      privateKey
-    );
+
+    fileStorage.uploadFile(account, fileName, bytesToUpload, privateKey);
   };
 
   const getAllFiles = async () => {
     let account = "0xcC4c3FBfA2716D74B3ED6514ca8Ba99d7f941dF9";
-    console.log("fileStora", fileStorage)
-    let files = await fileStorage.getFileInfoListByAddress(account);
+    let files = await fileStorage.listDirectory(account.split("0x")[1]);
     console.log("files", files);
   };
 
@@ -40,13 +42,22 @@ function FileUpload() {
     reader.readAsArrayBuffer(file);
   };
 
+  const contractCreateEvent = async() => {
+      await _createEvent();
+    //   args: (latitude, longitude, eventName)
+  }
+
   return (
-    <div className="file-upload">
+    <div
+      className="file-upload"
+      style={{ height: "calc(100% - 90px)", width: "100%" }}
+    >
       <input onChange={e => attach(e)} type="file" id="files" />
       <div onClick={uploadFile} className="file-button">
         Upload File
       </div>
       <div onClick={getAllFiles}>get files</div>
+      <div onClick={contractCreateEvent}>createEvent</div>
     </div>
   );
 }
