@@ -3,7 +3,7 @@ import { _getEvent, _createEvent, _createPost, _getPost } from "../contract";
 import { web3 } from "../contract";
 import "./UploadContent.css";
 
-import TwitterBtn from '../Twitter/twitterButton';
+import TwitterBtn from '../twitter/twitterButton';
 
 import { Form, Button } from "reactstrap";
 
