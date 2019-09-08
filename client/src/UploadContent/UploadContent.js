@@ -23,12 +23,20 @@ class UploadContent extends Component {
       filePaths: [],
       images: [],
       imagesReady: false,
-      reload: false
+      reload: false,
+      file: null
     };
+    this.handleFileChange = this.handleFileChange.bind(this)
   }
 
   componentDidMount() {
     this.load();
+  }
+
+  handleFileChange(event) {
+    this.setState({
+      file: URL.createObjectURL(event.target.files[0])
+    })
   }
 
   async load() {
@@ -62,16 +70,16 @@ class UploadContent extends Component {
   getAllFiles = async () => {
     let account = IMAGE_UPLOAD_ADDRESS; // michael test (not torus. use fixed acct for skale upload to coordinate image directory)
     let files = await fileStorage.listDirectory(account.split("0x")[1]);
-    const mapped = files.map(async fileObj => {
-      let file = await fileStorage.downloadToBuffer(fileObj.storagePath);
+    let holder = document.createElement('div');
+    for (var i = 0; i < files.length; i++){
+      let file = await fileStorage.downloadToBuffer(files[i].storagePath);
       file = "data:image/png;base64," + file.toString("base64");
-      console.log("file", file);
-      return file;
-    });
-
-    this.setState({ images: mapped, imagesReady: true });
-
-    console.log("files", files);
+      let imgEl = document.createElement('img');
+      imgEl.src = `${file}`
+      holder.append(imgEl)
+      const getImgHolder = document.getElementById('img-holder');
+      getImgHolder.append(holder)
+    }
   };
 
   attach = e => {
@@ -113,17 +121,15 @@ class UploadContent extends Component {
     console.log("imagesready", imagesReady);
     return (
       <div className="upload-content-view">
-        <input onChange={e => this.attach(e)} type="file" id="files" />
-        <div onClick={this.uploadFile} className="file-button">
-          Upload File
+        <img src={this.state.file}/> 
+        <input onChange={e => this.attach(e)} type="file" id="files" onChange={this.handleFileChange} />
+        <input onClick={this.uploadFile} className="file-button btn" type='button' value='Upload' />
+         
+        
+        <div id="img-holder" className="hide">
+
         </div>
-        {/* {imagesReady &&
-          images.map(img => {
-            return (
-              <img base64="true" src={img} height="40px" width="40px" />
-              // <img src={img} height="40px" width="40px" />
-            );
-          })} */}
+     
       </div>
     );
   }
