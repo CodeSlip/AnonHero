@@ -1,6 +1,6 @@
 import React, { useState, Component } from "react";
 import Web3 from "web3";
-import { createEvent } from "../contract"
+import { _createEvent } from "../contract"
 import "./Files.css";
 
 const FileStorage = require("@skalenetwork/filestorage.js/src/index");
@@ -43,7 +43,7 @@ function FileUpload() {
   };
 
   const contractCreateEvent = async() => {
-      await createEvent();
+      await _createEvent();
     //   args: (latitude, longitude, eventName)
   }
 
