@@ -6,11 +6,15 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import './Map.css';
 import { Button } from 'reactstrap';
 import Loading from '../Loading/Loading';
+// import HeatmapOverlay from 'react-map-gl-heatmap-overlay';
 
 class Map extends Component {
     constructor(props){
         super(props);
         this.state = {
+            people: {
+
+            },
             status:'default',
             activeMode: false,
             distance: null,
@@ -77,6 +81,7 @@ class Map extends Component {
             // if (unit=="N") { dist = dist * 0.8684 }
             distance = dist;
         }
+        console.log(dist)
         return distance
     }
 
@@ -94,17 +99,21 @@ class Map extends Component {
 
     render() {
         return (
-            <div className='map-view' style={{height: 'calc(100% - 90px)', width: '100%'}}>
-                    <ReactMapGL
-                        width='100%'
-                        height='100%'
-                            mapboxApiAccessToken = 'pk.eyJ1IjoidGlmZmFueW1xIiwiYSI6ImNrMDl3a2p3cjBkZGYzbW55djZ4NDgzMzcifQ.GcKDVp7Hzst2xXfpldKGcg'
-                            {...this.state.viewport}
-                            onViewportChange={(viewport) => this.setState({viewport})}>
-                                <Marker draggable={false} latitude={this.state.viewport.latitude} longitude={this.state.viewport.longitude} offsetLeft={-20} offsetTop={-10}>
-                                    <div className="meeting-point"></div>
-                                </Marker>
-                    </ReactMapGL>   
+            <div className={this.state.status == 'success' ? 'active-mode map-view' : 'map-view'} style={{height: 'calc(100% - 50px)', width: '100%'}}>
+                <ReactMapGL
+                   className='active-mode'
+                   width='100%'
+                   height='100%'
+                    mapboxApiAccessToken = 'pk.eyJ1IjoidGlmZmFueW1xIiwiYSI6ImNrMDl3a2p3cjBkZGYzbW55djZ4NDgzMzcifQ.GcKDVp7Hzst2xXfpldKGcg'
+                    {...this.state.viewport}
+                    onViewportChange={(viewport) => this.setState({viewport})}>
+                        <Marker draggable={false} latitude={this.state.viewport.latitude} longitude={this.state.viewport.longitude} offsetLeft={-20} offsetTop={-10}>
+                            <div className="meeting-point"></div>
+                        </Marker>
+ 
+                         {/* <HeatmapOverlay locations={'42.376700', '-71.112420'} {...viewport}/> */}
+                </ReactMapGL>
+                {this.state.showLoading == true ? <div className="loading-div"><Loading/></div> : null}
                 <Button 
                     disabled={this.state.status === 'fail' ? true : false}
                     className={"map-submit-btn " + (this.state.status === 'loading' ? ' loading-btn ' : '') + (this.state.status === 'success' ? 'success-btn ' : '') + (this.state.status === 'fail' ? 'fail-btn' : '')} 

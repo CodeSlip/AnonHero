@@ -40,11 +40,13 @@ export async function _createEvent() {
   })
 }
 
-export async function _createPost(filePath){
+export async function _createPost(latitude, longitude, filePath){
   const contr = await Contract();
 
-  const lat = web3Obj.web3.utils.fromAscii("42.3792848")
-  const long = web3Obj.web3.utils.fromAscii("-71.1156926")
+  const lat = web3Obj.web3.utils.fromAscii(latitude)
+  // const lat = web3Obj.web3.utils.fromAscii("42.3792848")
+  const long = web3Obj.web3.utils.fromAscii(longitude)
+  // const long = web3Obj.web3.utils.fromAscii("-71.1156926")
   const eventId = 1;
 
   const func = contr.methods.createPost(lat, long, eventId, filePath).encodeABI();
@@ -67,5 +69,12 @@ export async function _getEvent(eventId) {
   const contr = await ReadContract();
   console.log("contr", contr)
   const evt = await contr.methods.getEvent(eventId).call()
+  return evt;
+}
+
+export async function _getPost(postId) {
+  const contr = await ReadContract();
+  console.log("contr", contr)
+  const evt = await contr.methods.getPost(postId).call()
   return evt;
 }

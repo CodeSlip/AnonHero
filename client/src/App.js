@@ -90,20 +90,21 @@ class App extends React.Component {
       page: 'Upload'
     })
   }
-
-  changeActiveMode = () => {
-    let activeMode = this.state.activeMode;
+  changeToMapView = () => {
     this.setState({
-      activeMode: !activeMode
+      page: 'Map'
     })
   }
   
   render() {
     let {page} = this.state;
-    let view = (<MapView checkMapLocation={this.checkMapLocation} uploadContentClick={this.uploadContentPage} changeMode={()=>this.changeActiveMode}/>)
-
+    let view = (<MapView checkMapLocation={this.checkMapLocation} uploadContentClick={this.uploadContentPage} />)
     if(this.state.page === 'Upload'){
-      view = (<UploadContentView />)
+      view = (<UploadContentView changeToMap={this.changeToMapView} />)
+    }
+
+    if(this.state.page === 'Map'){
+      view = (<MapView checkMapLocation={this.checkMapLocation} uploadContentClick={this.uploadContentPage}  />)
     }
 
     if (this.state.loading == true) {

@@ -1,0 +1,33 @@
+.upload-content-form{
+    margin: 50px 0;
+}
+
+.img-upload{
+    width: 100%;
+    height: auto;
+}
+
+#img-holder div img{
+    width: 100%;
+}
+
+
+.add-file-container{
+    position: relative;
+    overflow: hidden;
+}
+
+#files{
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+
+.view-map-btn{
+    position: fixed;
+    bottom: 19px;
+    right: 10px;
+    z-index: 2;
+}
