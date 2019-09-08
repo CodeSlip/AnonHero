@@ -17,6 +17,13 @@ body {
 
 
 }
+a{
+  text-decoration: none;
+}
+
+a:hover{
+  text-decoration: none;
+}
 
 h3{
   margin-bottom: 30px;

@@ -177,9 +177,13 @@ class UploadContent extends Component {
           <h3>Upload Content</h3>
           <img src={this.state.file} className="img-upload" />
           {this.state.file ? (
-            <Button onClick={this.uploadFile} type="submit">
-              Share
-            </Button>
+            <div>
+              <Button style={{marginRight: '20px'}} onClick={this.uploadFile} type="submit">
+                Share
+              </Button>
+              <TwitterBtn className={this.state.file ? '' : 'hide'} videoLink={this.state.link}/>
+            </div>
+           
           ) : (
             <div className="add-file-container">
               <Button>Add Image</Button>
@@ -187,7 +191,6 @@ class UploadContent extends Component {
             </div>
           )}
 
-          {/* <TwitterBtn videoLink={this.state.link}/> */}
         </Form>
         <h3>Event Feed</h3>
         {/* <Button onClick={this.showFeed}>Show Feed</Button> */}
