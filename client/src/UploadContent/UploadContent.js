@@ -159,17 +159,22 @@ class UploadContent extends Component {
     });
   };
 
+  changeMapView = () => {
+    this.props.changeToMap();
+  }
+
   render() {
     const { imagesReady, images } = this.state;
     console.log("this.state", this.state);
     return (
       <div className="upload-content-view">
+        <Button onClick={this.changeMapView} className="view-map-btn"> View Map </Button>
         <Form className="upload-content-form" onSubmit={this.uploadFile}>
           <h3>Upload Content</h3>
           <img src={this.state.file} className="img-upload" />
           {this.state.file ? (
             <Button onClick={this.uploadFile} type="submit">
-              Upload
+              Share
             </Button>
           ) : (
             <div className="add-file-container">

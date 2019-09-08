@@ -77,6 +77,7 @@ class Map extends Component {
             // if (unit=="N") { dist = dist * 0.8684 }
             distance = dist;
         }
+        console.log(dist)
         return distance
     }
 
@@ -95,7 +96,7 @@ class Map extends Component {
     render() {
         console.log("this is the current status", this.state.status)
         return (
-            <div className={this.state.status == 'success' ? 'active-mode map-view' : 'map-view'} style={{height: 'calc(100% - 90px)', width: '100%'}}>
+            <div className={this.state.status == 'success' ? 'active-mode map-view' : 'map-view'} style={{height: 'calc(100% - 50px)', width: '100%'}}>
                 <ReactMapGL
                    className='active-mode'
                    width='100%'

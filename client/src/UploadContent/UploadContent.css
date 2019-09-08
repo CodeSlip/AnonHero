@@ -9,7 +9,6 @@
 
 #img-holder div img{
     width: 100%;
-
 }
 
 
@@ -24,4 +23,11 @@
     left: 0;
     top: 0;
     opacity: 0;
+}
+
+.view-map-btn{
+    position: fixed;
+    bottom: 19px;
+    right: 10px;
+    z-index: 2;
 }
