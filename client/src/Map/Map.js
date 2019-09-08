@@ -6,11 +6,15 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import './Map.css';
 import { Button } from 'reactstrap';
 import Loading from '../Loading/Loading';
+import HeatmapOverlay from 'react-map-gl-heatmap-overlay';
 
 class Map extends Component {
     constructor(props){
         super(props);
         this.state = {
+            people: {
+
+            },
             status:'default',
             activeMode: false,
             distance: null,
@@ -103,9 +107,10 @@ class Map extends Component {
                     mapboxApiAccessToken = 'pk.eyJ1IjoidGlmZmFueW1xIiwiYSI6ImNrMDl3a2p3cjBkZGYzbW55djZ4NDgzMzcifQ.GcKDVp7Hzst2xXfpldKGcg'
                     {...this.state.viewport}
                     onViewportChange={(viewport) => this.setState({viewport})}>
-                        <Marker draggable={false} latitude={this.state.viewport.latitude} longitude={this.state.viewport.longitude} offsetLeft={-20} offsetTop={-10}>
+                        {/* <Marker draggable={false} latitude={this.state.viewport.latitude} longitude={this.state.viewport.longitude} offsetLeft={-20} offsetTop={-10}>
                             <div className="meeting-point"></div>
-                        </Marker>
+                        </Marker> */}
+                         {/* <HeatmapOverlay locations={'42.376700', '-71.112420'} {...viewport}/> */}
                 </ReactMapGL>
                 {this.state.showLoading == true ? <div className="loading-div"><Loading/></div> : null}
                 <Button 

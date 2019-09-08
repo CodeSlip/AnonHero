@@ -158,9 +158,8 @@ class UploadContent extends Component {
               <input onChange={e => this.attach(e)} type="file" id="files" />
             </div>
            }
-
         </Form>
-        <h3>Feed</h3>
+        <h3>Event Feed</h3>
         <Button onClick={this.showFeed} >Show Feed</Button>
         <div id="img-holder" className={this.state.showFeed ? ' ' : 'hide'} >
         </div>
