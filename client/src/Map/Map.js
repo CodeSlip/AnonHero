@@ -101,18 +101,18 @@ class Map extends Component {
         return (
             <div className={this.state.status == 'success' ? 'active-mode map-view' : 'map-view'} style={{height: 'calc(100% - 50px)', width: '100%'}}>
                 <ReactMapGL
-                   className='active-mode'
-                   width='100%'
-                   height='100%'
+                    className='active-mode'
+                    width='100%'
+                    height='100%'
                     mapboxApiAccessToken = 'pk.eyJ1IjoidGlmZmFueW1xIiwiYSI6ImNrMDl3a2p3cjBkZGYzbW55djZ4NDgzMzcifQ.GcKDVp7Hzst2xXfpldKGcg'
                     {...this.state.viewport}
                     onViewportChange={(viewport) => this.setState({viewport})}>
-                        <Marker draggable={false} latitude={this.state.viewport.latitude} longitude={this.state.viewport.longitude} offsetLeft={-20} offsetTop={-10}>
+                         <Marker draggable={false} latitude={this.state.viewport.latitude} longitude={this.state.viewport.longitude} offsetLeft={-20} offsetTop={-10}>
                             <div className="meeting-point"></div>
                         </Marker>
- 
-                         {/* <HeatmapOverlay locations={'42.376700', '-71.112420'} {...viewport}/> */}
+                         {/* <HeatmapOverlay locations={[42.376700, -71.112420]} {...this.state.viewport}/> */}
                 </ReactMapGL>
+
                 {this.state.showLoading == true ? <div className="loading-div"><Loading/></div> : null}
                 <Button 
                     disabled={this.state.status === 'fail' ? true : false}

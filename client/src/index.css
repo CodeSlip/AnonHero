@@ -59,6 +59,7 @@ button,
 
 .login-btn {
   background-image: linear-gradient(-180deg, var(--link-blue), var(--dark-blue));
+  width: 150px;
 }
 
 .btn:hover {
