@@ -79,6 +79,7 @@ class UploadContent extends Component {
       holder.append(imgEl)
       const getImgHolder = document.getElementById('img-holder');
       getImgHolder.append(holder)
+      console.log("index", i)
     }
   };
 
@@ -95,8 +96,13 @@ class UploadContent extends Component {
     reader.readAsArrayBuffer(file);
   };
 
+  setBytes = (bytes) => {
+      this.setState({ bytesToUpload: bytes })
+  }
+
   uploadFile = async () => {
     if (!this.state.bytesToUpload) return;
+    console.log("in upload file -  bytes", this.state)
     let privateKey =
       "0xEC6BA7DD9EB64A5BF6336D20E4046E80935BC574EC6F1C4ADF6AA9DA5A286C4C"; // testnet pk
     let account = IMAGE_UPLOAD_ADDRESS; // testnet addr
@@ -108,10 +114,9 @@ class UploadContent extends Component {
       privateKey
     );
 
-      let getMostRecentUploads = await fileStorage.listDirectory(account.split("0x"));
+      let getMostRecentUploads = await fileStorage.listDirectory(account.split("0x")[1]);
       console.log("getmostrecent", getMostRecentUploads)
-      const mostRecent = getMostRecentUploads[getMostRecentUploads.length - 1];
-      console.log("mostrecent", mostRecent)
+      const mostRecent = getMostRecentUploads[getMostRecentUploads.length - 1].storagePath;
       await _createPost(mostRecent)
   };
 
@@ -122,8 +127,10 @@ class UploadContent extends Component {
     return (
       <div className="upload-content-view">
         <img src={this.state.file}/> 
-        <input onChange={e => this.attach(e)} type="file" id="files" onChange={this.handleFileChange} />
-        <input onClick={this.uploadFile} className="file-button btn" type='button' value='Upload' />
+        <input onChange={e => this.attach(e)} type="file" id="files" />
+        {/* <input onChange={e => this.attach(e)} type="file" id="files" onChange={this.handleFileChange} /> */}
+        <div onClick={this.uploadFile} className="file-button btn" type='button'>Upload</div>
+        {/* <input onClick={this.uploadFile} className="file-button btn" type='button' value='Upload' /> */}
          
         
         <div id="img-holder" className="hide">
