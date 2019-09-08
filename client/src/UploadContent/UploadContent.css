@@ -1,0 +1,22 @@
+.upload-content-form{
+    margin: 50px 0;
+}
+
+.img-upload{
+    width: 100%;
+    height: auto;
+}
+
+
+.add-file-container{
+    position: relative;
+    overflow: hidden;
+}
+
+#files{
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
