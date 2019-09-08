@@ -48,8 +48,19 @@
   font-size: 14px;
 }
 
-
-
+.active-box{
+  position:absolute; 
+  display:block;
+  margin:0px;
+  padding:0px;
+  height:100%; width:100%;
+  -moz-box-shadow:    inset 0 0 20px #800080;
+  -webkit-box-shadow: inset 0 0 20px #800080;
+  box-shadow:         inset 0 0 20px #800080;
+  background:none;
+  z-index:10 !important;
+  pointer-events:none;
+}
 
 
 

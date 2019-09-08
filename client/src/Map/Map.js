@@ -93,21 +93,18 @@ class Map extends Component {
     } 
 
     render() {
-        console.log("this is the current status", this.state.status)
         return (
-            <div className={this.state.status == 'success' ? 'active-mode map-view' : 'map-view'} style={{height: 'calc(100% - 90px)', width: '100%'}}>
-                <ReactMapGL
-                   className='active-mode'
-                   width='100%'
-                   height='100%'
-                    mapboxApiAccessToken = 'pk.eyJ1IjoidGlmZmFueW1xIiwiYSI6ImNrMDl3a2p3cjBkZGYzbW55djZ4NDgzMzcifQ.GcKDVp7Hzst2xXfpldKGcg'
-                    {...this.state.viewport}
-                    onViewportChange={(viewport) => this.setState({viewport})}>
-                        <Marker draggable={false} latitude={this.state.viewport.latitude} longitude={this.state.viewport.longitude} offsetLeft={-20} offsetTop={-10}>
-                            <div className="meeting-point"></div>
-                        </Marker>
-                </ReactMapGL>
-                {this.state.showLoading == true ? <div className="loading-div"><Loading/></div> : null}
+            <div className='map-view' style={{height: 'calc(100% - 90px)', width: '100%'}}>
+                    <ReactMapGL
+                        width='100%'
+                        height='100%'
+                            mapboxApiAccessToken = 'pk.eyJ1IjoidGlmZmFueW1xIiwiYSI6ImNrMDl3a2p3cjBkZGYzbW55djZ4NDgzMzcifQ.GcKDVp7Hzst2xXfpldKGcg'
+                            {...this.state.viewport}
+                            onViewportChange={(viewport) => this.setState({viewport})}>
+                                <Marker draggable={false} latitude={this.state.viewport.latitude} longitude={this.state.viewport.longitude} offsetLeft={-20} offsetTop={-10}>
+                                    <div className="meeting-point"></div>
+                                </Marker>
+                    </ReactMapGL>   
                 <Button 
                     disabled={this.state.status === 'fail' ? true : false}
                     className={"map-submit-btn " + (this.state.status === 'loading' ? ' loading-btn ' : '') + (this.state.status === 'success' ? 'success-btn ' : '') + (this.state.status === 'fail' ? 'fail-btn' : '')} 

@@ -4,7 +4,6 @@ import "./App.css";
 import web3Obj from './helper'
 import UploadContentView from './UploadContent/UploadContent';
 import MapView from './Map/Map';
-import FileUpload from "./Files/FileUpload";
 import Loading from './Loading/Loading';
 
 class App extends React.Component {
@@ -15,7 +14,8 @@ class App extends React.Component {
     loggedIn: false,
     userLocation: {lat: '', long: ''},
     distance:'',
-    loading: false
+    loading: false,
+    activeMode: false
   }
 
   componentDidMount() {
@@ -45,18 +45,18 @@ class App extends React.Component {
   }
 
   enableTorus = async () => {
+    this.setState({
+      loading: true
+    })
+    await web3Obj.initialize().then(()=>{
       this.setState({
-        loading: true
+        loggedIn: true
       })
-      await web3Obj.initialize().then(()=>{
-        this.setState({
-          loggedIn: true
-        })
-        this.setState({
-          loading: false
-        })
-      }).catch((error)=>console.log(error))
-    }
+      this.setState({
+        loading: false
+      })
+    }).catch((error)=>console.log(error))
+  }
 
   disableTorus = async () => {
     try {
@@ -90,10 +90,18 @@ class App extends React.Component {
       page: 'Upload'
     })
   }
+
+  changeActiveMode = () => {
+    let activeMode = this.state.activeMode;
+    this.setState({
+      activeMode: !activeMode
+    })
+  }
   
   render() {
     let {page} = this.state;
-    let view = (<MapView checkMapLocation={this.checkMapLocation} uploadContentClick={this.uploadContentPage}/>)
+    let view = (<MapView checkMapLocation={this.checkMapLocation} uploadContentClick={this.uploadContentPage} changeMode={()=>this.changeActiveMode}/>)
+
     if(this.state.page === 'Upload'){
       view = (<UploadContentView />)
     }
@@ -115,8 +123,8 @@ class App extends React.Component {
                   <Button className='logout-btn' onClick={this.disableTorus}>Logout</Button>
                 </div>
                 <div className="account">{this.state.account ? <p>Account: {this.state.account.slice(0,8)}...</p> : null}</div>
-              </div>
-              {view}
+              </div>              
+                {view}
               </div>
             :
             <div className="login-container default-padding">
