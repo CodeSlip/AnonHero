@@ -69,3 +69,10 @@ export async function _getEvent(eventId) {
   const evt = await contr.methods.getEvent(eventId).call()
   return evt;
 }
+
+export async function _getPost(postId) {
+  const contr = await ReadContract();
+  console.log("contr", contr)
+  const evt = await contr.methods.getPost(postId).call()
+  return evt;
+}

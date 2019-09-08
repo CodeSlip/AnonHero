@@ -12,6 +12,8 @@ body {
   background-color: var(--off-black);
   height: 100%;
   position: relative;
+  width: 400px;
+  margin: 0 auto;
 
 
 }
@@ -94,6 +96,11 @@ button, .btn{
 
 .hide{
   display: none;
+}
+
+
+#torusWidget{
+  position: absolute;
 }
 
 

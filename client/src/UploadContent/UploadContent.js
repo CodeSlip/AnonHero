@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { _getEvent, _createEvent, _createPost } from "../contract";
+import { _getEvent, _createEvent, _createPost, _getPost } from "../contract";
 import { web3 } from "../contract";
 
 import Web3 from "web3";
@@ -42,6 +42,7 @@ class UploadContent extends Component {
   async load() {
     await this.getEvent();
     await this.getAllFiles();
+    await this.getPosts()
   }
 
   async getEvent() {
@@ -119,6 +120,16 @@ class UploadContent extends Component {
       const mostRecent = getMostRecentUploads[getMostRecentUploads.length - 1].storagePath;
       await _createPost(mostRecent)
   };
+
+  async getPosts(){
+    const posts = [];
+    for(var i = 0; i < 2; i++){
+      const post = await _getPost(i);
+      posts.push(post)
+    }
+
+    console.log(posts)
+  }
 
 
   render() {
