@@ -49,7 +49,6 @@ class App extends React.Component {
         loading: true
       })
       await web3Obj.initialize().then(()=>{
-        this.setStateInfo()
         this.setState({
           loggedIn: true
         })
@@ -101,7 +100,6 @@ class App extends React.Component {
 
     if (this.state.loading == true) {
       return <div className="login-container default-padding">
-            <h1 className="logo">Anon Hero</h1>
             <div>
               <Loading />
             </div>

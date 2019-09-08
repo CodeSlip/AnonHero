@@ -12,7 +12,7 @@ class Map extends Component {
         super(props);
         this.state = {
             status:'default',
-            showLoading: false,
+            activeMode: false,
             distance: null,
             isInLocation: false,
             statusDict: {
@@ -38,8 +38,7 @@ class Map extends Component {
         this.props.checkMapLocation(this.props.coords.latitude, this.props.coords.longitude, dist)
         this.setState({
             status: 'loading',
-            distance: dist,
-            showLoading: false
+            distance: dist
         }, () => {
             setTimeout(()=>{
                 if(this.state.distance <= 1){
@@ -54,8 +53,7 @@ class Map extends Component {
             }, 2500)
         })
     }
-
-    // set for miles (default)                     
+                  
     checkDistance = (userLat, userLong, locationLat, locationLong) => {
         console.log(userLat, userLong,locationLat, locationLong)
         let distance = 0;
@@ -84,13 +82,9 @@ class Map extends Component {
 
     uploadContent = () => {
         this.setState({
-            showLoading: true
+            activeMode: true
         });
-        this.props.uploadContentClick().then(()=>{
-            this.setState({
-                showLoading: false
-            })
-        });
+        this.props.uploadContentClick()
     };
 
     onViewportChange = viewport => { 
@@ -99,9 +93,11 @@ class Map extends Component {
     } 
 
     render() {
+        console.log("this is the current status", this.state.status)
         return (
-            <div className='map-view' style={{height: 'calc(100% - 90px)', width: '100%'}}>
+            <div className={this.state.status == 'success' ? 'active-mode map-view' : 'map-view'} style={{height: 'calc(100% - 90px)', width: '100%'}}>
                 <ReactMapGL
+                   className='active-mode'
                    width='100%'
                    height='100%'
                     mapboxApiAccessToken = 'pk.eyJ1IjoidGlmZmFueW1xIiwiYSI6ImNrMDl3a2p3cjBkZGYzbW55djZ4NDgzMzcifQ.GcKDVp7Hzst2xXfpldKGcg'
