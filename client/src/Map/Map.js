@@ -84,7 +84,6 @@ class Map extends Component {
     }
 
     onViewportChange = viewport => { 
-        console.log('change')
         const {width, height, ...etc} = viewport
         this.setState({viewport: etc})
       } 

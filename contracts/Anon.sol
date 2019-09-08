@@ -7,27 +7,29 @@ contract Anon {
     }
 
     struct Post {
-        uint id;
-        uint eventId;
+        uint256 id;
+        uint256 eventId;
         string filePath;
         Geolocation location;
-        uint timestamp;
+        uint256 timestamp;
     }
 
     struct Event {
         bytes32 name;
         address creator;
         Geolocation location;
-        uint[] posts;
+        uint256[] posts;
     }
 
-    uint eventId = 1;
-    uint postId = 1;
+    uint256 eventId = 1;
+    uint256 postId = 1;
 
-    mapping(uint => Event) events;
-    mapping(uint => Post) posts;
+    mapping(uint256 => Event) events;
+    mapping(uint256 => Post) posts;
 
-    function createEvent(bytes32 _latitude, bytes32 _longitude, bytes32 _name) public {
+    function createEvent(bytes32 _latitude, bytes32 _longitude, bytes32 _name)
+        public
+    {
         Geolocation memory loc = Geolocation({
             latitude: _latitude,
             longitude: _longitude
@@ -37,13 +39,18 @@ contract Anon {
             name: _name,
             creator: msg.sender,
             location: loc,
-            posts: new uint[](0)
+            posts: new uint256[](0)
         });
 
         events[eventId++] = newEvent;
     }
 
-    function createPost(bytes32 _latitude, bytes32 _longitude, uint _eventId, string memory _filePath) public {
+    function createPost(
+        bytes32 _latitude,
+        bytes32 _longitude,
+        uint256 _eventId,
+        string memory _filePath
+    ) public {
         Geolocation memory loc = Geolocation({
             latitude: _latitude,
             longitude: _longitude
@@ -58,5 +65,41 @@ contract Anon {
         });
 
         events[_eventId].posts.push(postId++);
+    }
+
+    function getEvent(uint256 _eventId)
+        public
+        returns (
+            bytes32 name,
+            address creator,
+            bytes32 latitude,
+            bytes32 longitude,
+            uint256[] memory eventPosts
+        )
+    {
+        return (
+            events[_eventId].name,
+            events[_eventId].creator,
+            events[_eventId].location.latitude,
+            events[_eventId].location.longitude,
+            events[_eventId].posts
+        );
+    }
+
+    function getPost(uint256 _postId)
+        public
+        returns (
+            string memory filePath,
+            bytes32 latitude,
+            bytes32 longitude,
+            uint256 timestamp
+        )
+    {
+        return (
+            posts[_postId].filePath,
+            posts[_postId].location.latitude,
+            posts[_postId].location.longitude,
+            posts[_postId].timestamp
+        );
     }
 }
