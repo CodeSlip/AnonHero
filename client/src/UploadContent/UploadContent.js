@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { _getEvent, _createEvent, _createPost } from "../contract";
 import { web3 } from "../contract";
 
+import {Form, Button} from 'reactstrap';
+
 import Web3 from "web3";
 
 const FileStorage = require("@skalenetwork/filestorage.js/src/index");
@@ -122,14 +124,14 @@ class UploadContent extends Component {
     return (
       <div className="upload-content-view">
         <img src={this.state.file}/> 
-        <input onChange={e => this.attach(e)} type="file" id="files" onChange={this.handleFileChange} />
-        <input onClick={this.uploadFile} className="file-button btn" type='button' value='Upload' />
-         
-        
+        <Form onSubmit={this.uploadFile}>
+          <input onChange={e => this.attach(e)} type="file" id="files" onChange={this.handleFileChange} required/>
+          <input onClick={this.uploadFile} className="btn" type='button' value='Upload' />
+        </Form>
+  
         <div id="img-holder" className="hide">
 
         </div>
-     
       </div>
     );
   }
