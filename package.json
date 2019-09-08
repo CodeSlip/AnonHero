@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/CodeSlip/AnonHero#readme",
   "dependencies": {
+    "ethereumjs-tx": "^2.1.1",
     "truffle-hdwallet-provider": "^1.0.17"
   },
   "devDependencies": {
