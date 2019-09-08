@@ -108,6 +108,7 @@ class UploadContent extends Component {
 
   uploadFile = async () => {
     if (!this.state.bytesToUpload) return;
+    if(!this.state.latitude) return;
     console.log("in upload file -  bytes", this.state)
     let privateKey =
       "0xEC6BA7DD9EB64A5BF6336D20E4046E80935BC574EC6F1C4ADF6AA9DA5A286C4C"; // testnet pk
