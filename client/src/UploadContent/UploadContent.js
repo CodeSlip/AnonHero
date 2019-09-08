@@ -117,13 +117,13 @@ class UploadContent extends Component {
         <div onClick={this.uploadFile} className="file-button">
           Upload File
         </div>
-        {imagesReady &&
+        {/* {imagesReady &&
           images.map(img => {
             return (
               <img base64="true" src={img} height="40px" width="40px" />
               // <img src={img} height="40px" width="40px" />
             );
-          })}
+          })} */}
       </div>
     );
   }
