@@ -7,6 +7,11 @@
     height: auto;
 }
 
+#img-holder div img{
+    width: 100%;
+
+}
+
 
 .add-file-container{
     position: relative;
