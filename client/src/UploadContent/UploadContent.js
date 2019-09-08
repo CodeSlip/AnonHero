@@ -81,12 +81,15 @@ class UploadContent extends Component {
       holder.append(imgEl)
       const getImgHolder = document.getElementById('img-holder');
       getImgHolder.append(holder)
+      console.log("index", i)
     }
   };
 
   attach = e => {
     let file = document.getElementById("files").files[0];
-    this.setState({ fileName: file.name });
+    console.log(file);
+    this.setState({ fileName: file.name, file: URL.createObjectURL(e.target.files[0]) });
+
     let reader = new FileReader();
     const scope = this;
     reader.onload = async function(e) {
@@ -97,8 +100,13 @@ class UploadContent extends Component {
     reader.readAsArrayBuffer(file);
   };
 
+  setBytes = (bytes) => {
+      this.setState({ bytesToUpload: bytes })
+  }
+
   uploadFile = async () => {
     if (!this.state.bytesToUpload) return;
+    console.log("in upload file -  bytes", this.state)
     let privateKey =
       "0xEC6BA7DD9EB64A5BF6336D20E4046E80935BC574EC6F1C4ADF6AA9DA5A286C4C"; // testnet pk
     let account = IMAGE_UPLOAD_ADDRESS; // testnet addr
@@ -110,10 +118,9 @@ class UploadContent extends Component {
       privateKey
     );
 
-      let getMostRecentUploads = await fileStorage.listDirectory(account.split("0x"));
+      let getMostRecentUploads = await fileStorage.listDirectory(account.split("0x")[1]);
       console.log("getmostrecent", getMostRecentUploads)
-      const mostRecent = getMostRecentUploads[getMostRecentUploads.length - 1];
-      console.log("mostrecent", mostRecent)
+      const mostRecent = getMostRecentUploads[getMostRecentUploads.length - 1].storagePath;
       await _createPost(mostRecent)
   };
 
@@ -123,12 +130,12 @@ class UploadContent extends Component {
     console.log("imagesready", imagesReady);
     return (
       <div className="upload-content-view">
-        <Form onSubmit={this.uploadFile}>
-          <img src={this.state.file} width="100%"/> 
-          <input onChange={e => this.attach(e)} type="file" id="files" onChange={this.handleFileChange} required/>
-          <input onClick={this.uploadFile} className="btn" type='button' value='Upload' />
-        </Form>
-  
+        <img src={this.state.file}/> 
+        <input onChange={e => this.attach(e)} type="file" id="files" />
+        <div onClick={this.uploadFile} className="file-button btn" type='button'>Upload</div>
+        {/* <input onClick={this.uploadFile} className="file-button btn" type='button' value='Upload' /> */}
+         
+        
         <div id="img-holder" className="hide">
 
         </div>
