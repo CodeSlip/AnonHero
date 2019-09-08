@@ -29,6 +29,7 @@ code {
   --blue: #113A94;
   --dark-blue: #032B83;
   --link-blue: #61dafb;
+  --destructive: #D04349;
 }
 
 button, .btn{
@@ -51,12 +52,41 @@ button, .btn{
   background-color: var(--light-blue);
 }
 
+@keyframes gradientBG {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.loading-btn{
+  background: linear-gradient(-45deg, var(--light-blue), #23a6d5, var(--dark-blue));
+  background-size: 400% 400%;
+  animation: gradientBG 3s ease infinite;
+
+}
+
 .success-btn{
-  background-color: #4BB543;
+  transition: 1s;
+  /* background-color: #4BB543; */
 }
 
 .fail-btn{
+  transition: 1s;
   background-color: #D04349;
+}
+
+                     
+                     
+.btn.fail-btn.disabled{
+  background-color: #D04349;
+  opacity: 1;
+
 }
 
 

@@ -15,29 +15,35 @@ class Map extends Component {
             status:'default',
             distance: null,
             isInLocation: false,
+            statusDict: {
+                'default': 'Set Location',
+                'success' : 'Next',
+                'fail' : 'Not in Location',
+                'loading': 'Verifying'
+            },
             viewport: {
               width: '100%',
               height: '100%',
-            //   latitude: 42.3792848,
-            //   longitude: -71.1156926,
-              latitude: 37.7577,
-              longitude: -122.4376,
-              zoom: 8
+              latitude: 42.3792848,
+              longitude: -71.1156926,
+            //   latitude: 37.7577,
+            //   longitude: -122.4376,
+              zoom: 15
             }
         };
     }
     checkLocation = (e) => {
+        console.log(this.state)
         e.preventDefault();
-        let dist =  this.checkDistance(this.state.latitude,this.state.longitude, this.state.viewport.latitude,this.state.viewport.longitude);
-        this.setState({
-            distance: dist
-        })
+        let dist =  this.checkDistance(this.props.coords.latitude,this.props.coords.longitude, this.state.viewport.latitude,this.state.viewport.longitude);
+        console.log(dist, 'distance')
         this.props.checkMapLocation(this.props.coords.latitude, this.props.coords.longitude, dist)
         this.setState({
-            status: 'loading'
+            status: 'loading',
+            distance: dist
         }, () => {
             setTimeout(()=>{
-                if(this.state.distance <= .3){
+                if(this.state.distance <= 1){
                     this.setState({
                         status: 'success'
                     })
@@ -46,16 +52,17 @@ class Map extends Component {
                         status: 'fail'
                     })
                 }
-            }, 2000)
+            }, 2500)
         })
     }
 
-
-// set for miles (default)                     
-
+    // set for miles (default)                     
     checkDistance = (userLat, userLong, locationLat, locationLong) => {
+        console.log(userLat, userLong,locationLat, locationLong)
+        let distance = 0;
         if ((userLat == locationLat) && (userLong == locationLong)) {
-            return 0;
+            distance =  0;
+            
         }
         else {
             var radlat1 = Math.PI * userLat/180;
@@ -71,9 +78,11 @@ class Map extends Component {
             dist = dist * 60 * 1.1515;
             // if (unit=="K") { dist = dist * 1.609344 }
             // if (unit=="N") { dist = dist * 0.8684 }
-            
-            return dist;
+            distance = dist;
         }
+        console.log(dist)
+
+        return distance
     }
 
     onViewportChange = viewport => { 
@@ -83,7 +92,6 @@ class Map extends Component {
       } 
 
     render() {
-        console.log(this.props, 'map')
         return (
             <div className='map-view' style={{height: 'calc(100% - 90px)', width: '100%'}}>
                 <ReactMapGL
@@ -93,14 +101,14 @@ class Map extends Component {
                     {...this.state.viewport}
                     onViewportChange={(viewport) => this.setState({viewport})}>
                         <Marker draggable={false} latitude={this.state.viewport.latitude} longitude={this.state.viewport.longitude} offsetLeft={-20} offsetTop={-10}>
-                            <div style={{color: '#f00'}}>Meeting Point</div>
+                            <div className="meeting-point"></div>
                         </Marker>
                     </ReactMapGL>
                 <Button 
+                    disabled={this.state.status === 'fail' ? true : false}
                     className={"map-submit-btn " + (this.state.status === 'loading' ? ' loading-btn ' : '') + (this.state.status === 'success' ? 'success-btn ' : '') + (this.state.status === 'fail' ? 'fail-btn' : '')} 
                     onClick={this.checkLocation}>
-
-                    Set Location
+                     {this.state.statusDict[this.state.status]}
                 </Button>
             </div>
         );
