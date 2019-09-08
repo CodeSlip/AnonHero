@@ -32,10 +32,8 @@ class Map extends Component {
         };
     }
     checkLocation = (e) => {
-        console.log(this.state)
         e.preventDefault();
         let dist =  this.checkDistance(this.props.coords.latitude,this.props.coords.longitude, this.state.viewport.latitude,this.state.viewport.longitude);
-        console.log(dist, 'distance')
         this.props.checkMapLocation(this.props.coords.latitude, this.props.coords.longitude, dist)
         this.setState({
             status: 'loading',
@@ -83,6 +81,9 @@ class Map extends Component {
         return distance
     }
 
+    uploadContent = () => {
+        this.props.uploadContentClick();
+    }
     onViewportChange = viewport => { 
         const {width, height, ...etc} = viewport
         this.setState({viewport: etc})
@@ -104,7 +105,7 @@ class Map extends Component {
                 <Button 
                     disabled={this.state.status === 'fail' ? true : false}
                     className={"map-submit-btn " + (this.state.status === 'loading' ? ' loading-btn ' : '') + (this.state.status === 'success' ? 'success-btn ' : '') + (this.state.status === 'fail' ? 'fail-btn' : '')} 
-                    onClick={this.checkLocation}>
+                    onClick={this.state.status === 'success' ? this.uploadContent : this.checkLocation}>
                      {this.state.statusDict[this.state.status]}
                 </Button>
             </div>

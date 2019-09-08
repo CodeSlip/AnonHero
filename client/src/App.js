@@ -81,9 +81,19 @@ class App extends React.Component {
     }
 
   }
+
+  uploadContentPage = () => {
+    this.setState({
+      page: 'Upload'
+    })
+  }
   
   render() {
     let {page} = this.state;
+    let view = (<MapView checkMapLocation={this.checkMapLocation} uploadContentClick={this.uploadContentPage}/>)
+    if(this.state.page === 'Upload'){
+      view = (<UploadContentView />)
+    }
     return (
       <div className="App">
         {/* <FileUpload /> */}
@@ -96,8 +106,7 @@ class App extends React.Component {
               </div>
               <div className="account">{this.state.account ? <p>Account: {this.state.account.slice(0,8)}...</p> : null}</div>
             </div>
-            {/* <MapView checkMapLocation={this.checkMapLocation}/> */}
-            <UploadContentView />
+            {view}
             </div>
           :
           <div className="login-container default-padding">

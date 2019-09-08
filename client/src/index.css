@@ -73,9 +73,8 @@ button, .btn{
 
 .success-btn{
   transition: 1s;
-  background-color: var(--gray)
+  font-size: 18px;
 
-  /* background-color: #4BB543; */
 
 }
 
