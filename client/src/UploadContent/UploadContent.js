@@ -123,8 +123,8 @@ class UploadContent extends Component {
     console.log("imagesready", imagesReady);
     return (
       <div className="upload-content-view">
-        <img src={this.state.file}/> 
         <Form onSubmit={this.uploadFile}>
+          <img src={this.state.file} width="100%"/> 
           <input onChange={e => this.attach(e)} type="file" id="files" onChange={this.handleFileChange} required/>
           <input onClick={this.uploadFile} className="btn" type='button' value='Upload' />
         </Form>
