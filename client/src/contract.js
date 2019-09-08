@@ -40,6 +40,29 @@ export async function _createEvent() {
   })
 }
 
+export async function _createPost(filePath){
+  const contr = await Contract();
+
+  const lat = web3Obj.web3.utils.fromAscii("42.3792848")
+  const long = web3Obj.web3.utils.fromAscii("-71.1156926")
+  const eventId = 1;
+
+  const func = contr.methods.createPost(lat, long, eventId, filePath).encodeABI();
+  web3Obj.web3.eth.getAccounts((err, res) => {
+    console.log("res", res)
+    web3Obj.web3.eth.sendTransaction(
+      {
+        from: res[0],
+        to: SkaleAnonContract,
+        data: func
+      }, ((error, txHash) => {
+        console.log("error", error)
+        console.log("txhash", txHash)
+      })
+    )
+  })
+}
+
 export async function _getEvent(eventId) {
   const contr = await ReadContract();
   console.log("contr", contr)

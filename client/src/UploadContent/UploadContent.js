@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { _getEvent, _createEvent } from "../contract";
+import { _getEvent, _createEvent, _createPost } from "../contract";
 import { web3 } from "../contract";
 
 import Web3 from "web3";
@@ -93,12 +93,18 @@ class UploadContent extends Component {
       "0xEC6BA7DD9EB64A5BF6336D20E4046E80935BC574EC6F1C4ADF6AA9DA5A286C4C"; // testnet pk
     let account = IMAGE_UPLOAD_ADDRESS; // testnet addr
 
-    fileStorage.uploadFile(
+    await fileStorage.uploadFile(
       account,
       this.state.fileName,
       this.state.bytesToUpload,
       privateKey
     );
+
+      let getMostRecentUploads = await fileStorage.listDirectory(account.split("0x"));
+      console.log("getmostrecent", getMostRecentUploads)
+      const mostRecent = getMostRecentUploads[getMostRecentUploads.length - 1];
+      console.log("mostrecent", mostRecent)
+      await _createPost(mostRecent)
   };
 
 
