@@ -6,7 +6,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import './Map.css';
 import { Button } from 'reactstrap';
 import Loading from '../Loading/Loading';
-import HeatmapOverlay from 'react-map-gl-heatmap-overlay';
+// import HeatmapOverlay from 'react-map-gl-heatmap-overlay';
 
 class Map extends Component {
     constructor(props){
