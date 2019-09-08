@@ -18,6 +18,10 @@ body {
 
 }
 
+h3{
+  margin-bottom: 30px;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -110,9 +114,9 @@ button, .btn{
   top: 50%;
 }
 
-#torusWidget{
+/* #torusWidget{
   position: absolute;
-}
+} */
 
 
 

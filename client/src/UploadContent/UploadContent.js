@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { _getEvent, _createEvent, _createPost, _getPost } from "../contract";
 import { web3 } from "../contract";
-import './UploadContent.css';
+import "./UploadContent.css";
 
-import {Form, Button} from 'reactstrap';
+import TwitterBtn from '../Twitter/twitterButton';
+
+import { Form, Button } from "reactstrap";
 
 import Web3 from "web3";
 
@@ -28,25 +30,34 @@ class UploadContent extends Component {
       imagesReady: false,
       reload: false,
       file: null,
-      showFeed: false
+      showFeed: false,
+      latitude: null,
+      longitude: null,
+      link: null
     };
-    this.handleFileChange = this.handleFileChange.bind(this)
+    this.handleFileChange = this.handleFileChange.bind(this);
   }
 
   componentDidMount() {
     this.load();
+    window.navigator.geolocation.getCurrentPosition(loc => {
+      this.setState({
+        latitude: loc.coords.latitude,
+        longitude: loc.coords.longitude
+      });
+    });
   }
 
   handleFileChange(event) {
     this.setState({
       file: URL.createObjectURL(event.target.files[0])
-    })
+    });
   }
 
   async load() {
     await this.getEvent();
     await this.getAllFiles();
-    await this.getPosts()
+    await this.getPosts();
   }
 
   async getEvent() {
@@ -75,22 +86,25 @@ class UploadContent extends Component {
   getAllFiles = async () => {
     let account = IMAGE_UPLOAD_ADDRESS; // michael test (not torus. use fixed acct for skale upload to coordinate image directory)
     let files = await fileStorage.listDirectory(account.split("0x")[1]);
-    let holder = document.createElement('div');
-    for (var i = 0; i < files.length; i++){
+    let holder = document.createElement("div");
+    for (var i = 0; i < files.length; i++) {
       let file = await fileStorage.downloadToBuffer(files[i].storagePath);
       file = "data:image/png;base64," + file.toString("base64");
-      let imgEl = document.createElement('img');
-      imgEl.src = `${file}`
-      holder.append(imgEl)
-      const getImgHolder = document.getElementById('img-holder');
-      getImgHolder.append(holder)
+      let imgEl = document.createElement("img");
+      imgEl.src = `${file}`;
+      holder.append(imgEl);
+      const getImgHolder = document.getElementById("img-holder");
+      getImgHolder.append(holder);
     }
   };
 
   attach = e => {
     let file = document.getElementById("files").files[0];
     console.log(file);
-    this.setState({ fileName: file.name, file: URL.createObjectURL(e.target.files[0]) });
+    this.setState({
+      fileName: file.name,
+      file: URL.createObjectURL(e.target.files[0])
+    });
 
     let reader = new FileReader();
     const scope = this;
@@ -102,12 +116,14 @@ class UploadContent extends Component {
     reader.readAsArrayBuffer(file);
   };
 
-  setBytes = (bytes) => {
-      this.setState({ bytesToUpload: bytes })
-  }
+  setBytes = bytes => {
+    this.setState({ bytesToUpload: bytes });
+  };
 
-  uploadFile = async () => {
+  uploadFile = async e => {
+    e.preventDefault();
     if (!this.state.bytesToUpload) return;
+    if(!this.state.latitude) return;
     console.log("in upload file -  bytes", this.state)
     let privateKey =
       "0xEC6BA7DD9EB64A5BF6336D20E4046E80935BC574EC6F1C4ADF6AA9DA5A286C4C"; // testnet pk
@@ -120,49 +136,65 @@ class UploadContent extends Component {
       privateKey
     );
 
-      let getMostRecentUploads = await fileStorage.listDirectory(account.split("0x")[1]);
-      console.log("getmostrecent", getMostRecentUploads)
-      const mostRecent = getMostRecentUploads[getMostRecentUploads.length - 1].storagePath;
-      await _createPost(mostRecent)
+    let getMostRecentUploads = await fileStorage.listDirectory(
+      account.split("0x")[1]
+    );
+    console.log("getmostrecent", getMostRecentUploads);
+    const mostRecent =
+      getMostRecentUploads[getMostRecentUploads.length - 1].storagePath;
+
+    const { latitude, longitude } = this.state;
+    await _createPost(latitude, longitude, mostRecent);
   };
 
-  async getPosts(){
+  async getPosts() {
     const posts = [];
-    for(var i = 0; i < 2; i++){
+    for (var i = 0; i < 2; i++) {
       const post = await _getPost(i);
-      posts.push(post)
+      posts.push(post);
     }
 
-    console.log(posts)
+    console.log(posts);
   }
 
   showFeed = () => {
     this.setState({
       showFeed: !this.state.showFeed
-    })
+    });
+  };
+
+  changeMapView = () => {
+    this.props.changeToMap();
   }
 
   render() {
     const { imagesReady, images } = this.state;
-    console.log("imagesready", imagesReady);
+    console.log("this.state", this.state);
     return (
       <div className="upload-content-view">
+        <Button onClick={this.changeMapView} className="view-map-btn"> View Map </Button>
         <Form className="upload-content-form" onSubmit={this.uploadFile}>
           <h3>Upload Content</h3>
-          <img src={this.state.file}  className="img-upload"/> 
-          {this.state.file ? 
-            <Button onClick={this.uploadFile}  type='submit'>Upload</Button>
-            :
+          <img src={this.state.file} className="img-upload" />
+          {this.state.file ? (
+            <Button onClick={this.uploadFile} type="submit">
+              Share
+            </Button>
+          ) : (
             <div className="add-file-container">
               <Button>Add Image</Button>
               <input onChange={e => this.attach(e)} type="file" id="files" />
             </div>
-           }
+          )}
+
+          {/* <TwitterBtn videoLink={this.state.link}/> */}
         </Form>
         <h3>Event Feed</h3>
-        <Button onClick={this.showFeed} >Show Feed</Button>
-        <div id="img-holder" className={this.state.showFeed ? ' ' : 'hide'} >
-        </div>
+        {/* <Button onClick={this.showFeed}>Show Feed</Button> */}
+        <div
+          id="img-holder"
+          // className={this.state.showFeed ? " " : "hide"}
+        ></div>
       </div>
     );
   }

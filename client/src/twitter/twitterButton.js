@@ -8,4 +8,4 @@ const twitterButton =(props)=>{
             )
     }
     
-export default App;
+export default twitterButton;

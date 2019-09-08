@@ -90,12 +90,21 @@ class App extends React.Component {
       page: 'Upload'
     })
   }
+  changeToMapView = () => {
+    this.setState({
+      page: 'Map'
+    })
+  }
   
   render() {
     let {page} = this.state;
-    let view = (<MapView checkMapLocation={this.checkMapLocation} uploadContentClick={this.uploadContentPage}/>)
+    let view = (<MapView checkMapLocation={this.checkMapLocation} uploadContentClick={this.uploadContentPage} />)
     if(this.state.page === 'Upload'){
-      view = (<UploadContentView />)
+      view = (<UploadContentView changeToMap={this.changeToMapView} />)
+    }
+
+    if(this.state.page === 'Map'){
+      view = (<MapView checkMapLocation={this.checkMapLocation} uploadContentClick={this.uploadContentPage}  />)
     }
 
     if (this.state.loading == true) {

@@ -81,6 +81,7 @@ class Map extends Component {
             // if (unit=="N") { dist = dist * 0.8684 }
             distance = dist;
         }
+        console.log(dist)
         return distance
     }
 
@@ -99,7 +100,7 @@ class Map extends Component {
     render() {
         console.log("this is the current status", this.state.status)
         return (
-            <div className={this.state.status == 'success' ? 'active-mode map-view' : 'map-view'} style={{height: 'calc(100% - 90px)', width: '100%'}}>
+            <div className={this.state.status == 'success' ? 'active-mode map-view' : 'map-view'} style={{height: 'calc(100% - 50px)', width: '100%'}}>
                 <ReactMapGL
                    className='active-mode'
                    width='100%'
@@ -107,9 +108,9 @@ class Map extends Component {
                     mapboxApiAccessToken = 'pk.eyJ1IjoidGlmZmFueW1xIiwiYSI6ImNrMDl3a2p3cjBkZGYzbW55djZ4NDgzMzcifQ.GcKDVp7Hzst2xXfpldKGcg'
                     {...this.state.viewport}
                     onViewportChange={(viewport) => this.setState({viewport})}>
-                        {/* <Marker draggable={false} latitude={this.state.viewport.latitude} longitude={this.state.viewport.longitude} offsetLeft={-20} offsetTop={-10}>
+                        <Marker draggable={false} latitude={this.state.viewport.latitude} longitude={this.state.viewport.longitude} offsetLeft={-20} offsetTop={-10}>
                             <div className="meeting-point"></div>
-                        </Marker> */}
+                        </Marker>
                          {/* <HeatmapOverlay locations={'42.376700', '-71.112420'} {...viewport}/> */}
                 </ReactMapGL>
                 {this.state.showLoading == true ? <div className="loading-div"><Loading/></div> : null}
