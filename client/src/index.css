@@ -29,6 +29,7 @@ code {
   --blue: #113A94;
   --dark-blue: #032B83;
   --link-blue: #61dafb;
+  --destructive: #D04349;
 }
 
 button, .btn{
@@ -44,12 +45,53 @@ button, .btn{
 
 .login-btn{
   background-image: linear-gradient(-180deg, var(--link-blue), var(--dark-blue));
-
 }
 
 .btn:hover{
   background-image: none;
   background-color: var(--light-blue);
 }
+
+@keyframes gradientBG {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.loading-btn{
+  background: linear-gradient(-45deg, var(--light-blue), #23a6d5, var(--dark-blue));
+  background-size: 400% 400%;
+  animation: gradientBG 2s ease infinite;
+
+}
+
+.success-btn{
+  transition: 1s;
+  font-size: 18px;
+
+
+}
+
+
+.fail-btn{
+  transition: 1s;
+  background-color: #D04349;
+}
+
+                     
+                     
+.btn.fail-btn.disabled{
+  background-color: #D04349;
+  opacity: 1;
+
+}
+
+
 
 

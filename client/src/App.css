@@ -33,17 +33,20 @@
 .page-header{
   text-align: left;
   background-color: var(--light-blue);
+  padding: 20px 15px;
+}
+.page-header .header{
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.page-header {
-  padding: 20px 15px;
+.page-header .account p{
+  font-family: 'Courier New', Courier, monospace;
+  margin: 0px;
+  margin-top: 20px;
+  font-size: 14px;
 }
-
-
-
 
 
 
