@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier:solidity": "./node_modules/.bin/prettier --write contracts/**/*.sol"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,12 @@
   },
   "homepage": "https://github.com/CodeSlip/AnonHero#readme",
   "dependencies": {
+    "ethereumjs-tx": "^2.1.1",
     "truffle-hdwallet-provider": "^1.0.17"
+  },
+  "devDependencies": {
+    "prettier": "^1.18.2",
+    "prettier-plugin-solidity": "^1.0.0-alpha.32",
+    "solhint-plugin-prettier": "0.0.3"
   }
 }
