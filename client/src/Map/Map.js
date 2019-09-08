@@ -111,6 +111,7 @@ class Map extends Component {
                         <Marker draggable={false} latitude={this.state.viewport.latitude} longitude={this.state.viewport.longitude} offsetLeft={-20} offsetTop={-10}>
                             <div className="meeting-point"></div>
                         </Marker>
+ 
                          {/* <HeatmapOverlay locations={'42.376700', '-71.112420'} {...viewport}/> */}
                 </ReactMapGL>
                 {this.state.showLoading == true ? <div className="loading-div"><Loading/></div> : null}

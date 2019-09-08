@@ -179,7 +179,7 @@ class UploadContent extends Component {
           {this.state.file ? (
             <div>
               <Button style={{marginRight: '20px'}} onClick={this.uploadFile} type="submit">
-                Share
+                Add to Feed
               </Button>
               <TwitterBtn className={this.state.file ? '' : 'hide'} videoLink={this.state.link}/>
             </div>

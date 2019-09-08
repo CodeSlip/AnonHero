@@ -1,10 +1,9 @@
-
 @import url('https://fonts.googleapis.com/css?family=Exo+2:400,700|Open+Sans&display=swap');
 
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Exo',-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  font-family: 'Exo', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -17,15 +16,16 @@ body {
 
 
 }
-a{
+
+a {
   text-decoration: none;
 }
 
-a:hover{
+a:hover {
   text-decoration: none;
 }
 
-h3{
+h3 {
   margin-bottom: 30px;
 }
 
@@ -45,7 +45,8 @@ code {
   --destructive: #D04349;
 }
 
-button, .btn{
+button,
+.btn {
   outline: none;
   border: none;
   font-family: 'Exo 2', monospace;
@@ -56,35 +57,37 @@ button, .btn{
   transition: all .5s;
 }
 
-.login-btn{
+.login-btn {
   background-image: linear-gradient(-180deg, var(--link-blue), var(--dark-blue));
 }
 
-.btn:hover{
+.btn:hover {
   background-image: none;
   background-color: var(--light-blue);
 }
 
 @keyframes gradientBG {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-.loading-btn{
+.loading-btn {
   background: linear-gradient(-45deg, var(--light-blue), #23a6d5, var(--dark-blue));
   background-size: 400% 400%;
   animation: gradientBG 2s ease infinite;
 
 }
 
-.success-btn{
+.success-btn {
   transition: 1s;
   font-size: 18px;
 
@@ -92,26 +95,28 @@ button, .btn{
 }
 
 
-.fail-btn{
+.fail-btn {
   transition: 1s;
   background-color: #D04349;
 }
 
-                     
-                
-.btn.fail-btn.disabled{
+
+
+.btn.fail-btn.disabled {
   background-color: #D04349;
   opacity: 1;
 
 }
 
-.hide{
+.hide {
   display: none;
 }
 
 .loader {
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
+  border: 16px solid #f3f3f3;
+  /* Light grey */
+  border-top: 16px solid #3498db;
+  /* Blue */
   border-radius: 50%;
   width: 120px;
   height: 120px;
@@ -129,6 +134,11 @@ button, .btn{
 
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
