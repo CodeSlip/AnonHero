@@ -11,10 +11,15 @@
 }
 
 
-.logo{
+.logo-text{
   font-weight: 700;
   font-size: 48px;
   margin: 30px 0 ;
+}
+
+.logo-img{
+  width:60%;
+  margin: 20px auto 50px;
 }
 
 .login-container{

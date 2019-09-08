@@ -129,7 +129,8 @@ class App extends React.Component {
               </div>
             :
             <div className="login-container default-padding">
-              <h1 className="logo">Anon Hero</h1>
+              <h1 className="logo-text">AnonHero</h1>
+              <img className="logo-img" width="80%" src="/logo.png" alt=""/>
               <div>
                 <Button  className="login-btn" onClick={this.enableTorus}>Login</Button>
               </div>

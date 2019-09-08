@@ -128,7 +128,7 @@ class UploadContent extends Component {
     let privateKey =
       "0xEC6BA7DD9EB64A5BF6336D20E4046E80935BC574EC6F1C4ADF6AA9DA5A286C4C"; // testnet pk
     let account = IMAGE_UPLOAD_ADDRESS; // testnet addr
-
+    console.log(account)
     await fileStorage.uploadFile(
       account,
       this.state.fileName,
@@ -175,6 +175,9 @@ class UploadContent extends Component {
         <Button onClick={this.changeMapView} className="view-map-btn"> View Map </Button>
         <Form className="upload-content-form" onSubmit={this.uploadFile}>
           <h3>Upload Content</h3>
+          <div>
+
+          </div>
           <img src={this.state.file} className="img-upload" />
           {this.state.file ? (
             <div>
