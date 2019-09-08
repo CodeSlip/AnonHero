@@ -8,3 +8,11 @@
 .map-view{
     overflow: hidden;
 }
+
+.meeting-point{
+    width: 10px;
+    height: 10px;
+    background-color: var(--destructive);
+    border-radius: 10px;
+    box-shadow: 0 0 15px var(--destructive);
+}

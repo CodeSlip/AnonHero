@@ -5,6 +5,7 @@ import web3Obj from './helper'
 import UploadContentView from './UploadContent/UploadContent';
 import MapView from './Map/Map';
 import FileUpload from "./Files/FileUpload";
+import Loading from './Loading/Loading';
 
 class App extends React.Component {
   state = {
@@ -13,7 +14,8 @@ class App extends React.Component {
     page:'Map',
     loggedIn: false,
     userLocation: {lat: '', long: ''},
-    distance:''
+    distance:'',
+    loading: false
   }
 
   componentDidMount() {
@@ -43,10 +45,16 @@ class App extends React.Component {
   }
 
   enableTorus = async () => {
+      this.setState({
+        loading: true
+      })
       await web3Obj.initialize().then(()=>{
         this.setStateInfo()
         this.setState({
           loggedIn: true
+        })
+        this.setState({
+          loading: false
         })
       }).catch((error)=>console.log(error))
     }
@@ -77,30 +85,52 @@ class App extends React.Component {
       })
     }
   }
+
+  uploadContentPage = () => {
+    this.setState({
+      page: 'Upload'
+    })
+  }
   
   render() {
     let {page} = this.state;
-    return (
-      <div className="App">
-        {this.state.loggedIn === true ? 
-          <div style={{height: '100%'}}> 
-            <div className="page-header">
-                <h4>AnonHero | {page} </h4>
-                <Button className='logout-btn' onClick={this.disableTorus}>Logout</Button>
-            </div>
-            {/* <MapView checkMapLocation={this.checkMapLocation}/> */}
-            <UploadContentView />
-            </div>
-          :
-          <div className="login-container default-padding">
+    let view = (<MapView checkMapLocation={this.checkMapLocation} uploadContentClick={this.uploadContentPage}/>)
+    if(this.state.page === 'Upload'){
+      view = (<UploadContentView />)
+    }
+
+    if (this.state.loading == true) {
+      return <div className="login-container default-padding">
             <h1 className="logo">Anon Hero</h1>
             <div>
-              <Button  className="login-btn" onClick={this.enableTorus}>Login</Button>
+              <Loading />
             </div>
           </div>
-        }
-      </div>
-    )
+    } else {
+      return (
+        <div className="App">
+          {this.state.loggedIn === true ? 
+            <div style={{height: '100%'}}> 
+              <div className="page-header">
+                <div className="header"> 
+                  <h4>AnonHero | {page} </h4>
+                  <Button className='logout-btn' onClick={this.disableTorus}>Logout</Button>
+                </div>
+                <div className="account">{this.state.account ? <p>Account: {this.state.account.slice(0,8)}...</p> : null}</div>
+              </div>
+              {view}
+              </div>
+            :
+            <div className="login-container default-padding">
+              <h1 className="logo">Anon Hero</h1>
+              <div>
+                <Button  className="login-btn" onClick={this.enableTorus}>Login</Button>
+              </div>
+            </div>
+          }
+        </div>
+      )
+    }
   }
 }
 
