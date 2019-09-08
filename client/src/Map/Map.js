@@ -3,16 +3,16 @@ import {Component} from 'react';
 import ReactMapGL, {Marker} from 'react-map-gl';
 import { geolocated } from "react-geolocated";
 import 'mapbox-gl/dist/mapbox-gl.css';
-
 import './Map.css';
 import { Button } from 'reactstrap';
-
+import Loading from '../Loading/Loading';
 
 class Map extends Component {
     constructor(props){
         super(props);
         this.state = {
             status:'default',
+            showLoading: false,
             distance: null,
             isInLocation: false,
             statusDict: {
@@ -31,13 +31,15 @@ class Map extends Component {
             }
         };
     }
+
     checkLocation = (e) => {
         e.preventDefault();
         let dist =  this.checkDistance(this.props.coords.latitude,this.props.coords.longitude, this.state.viewport.latitude,this.state.viewport.longitude);
         this.props.checkMapLocation(this.props.coords.latitude, this.props.coords.longitude, dist)
         this.setState({
             status: 'loading',
-            distance: dist
+            distance: dist,
+            showLoading: false
         }, () => {
             setTimeout(()=>{
                 if(this.state.distance <= 1){
@@ -77,17 +79,24 @@ class Map extends Component {
             // if (unit=="N") { dist = dist * 0.8684 }
             distance = dist;
         }
-
         return distance
     }
 
     uploadContent = () => {
-        this.props.uploadContentClick();
-    }
+        this.setState({
+            showLoading: true
+        });
+        this.props.uploadContentClick().then(()=>{
+            this.setState({
+                showLoading: false
+            })
+        });
+    };
+
     onViewportChange = viewport => { 
         const {width, height, ...etc} = viewport
         this.setState({viewport: etc})
-      } 
+    } 
 
     render() {
         return (
@@ -101,7 +110,8 @@ class Map extends Component {
                         <Marker draggable={false} latitude={this.state.viewport.latitude} longitude={this.state.viewport.longitude} offsetLeft={-20} offsetTop={-10}>
                             <div className="meeting-point"></div>
                         </Marker>
-                    </ReactMapGL>
+                </ReactMapGL>
+                {this.state.showLoading == true ? <div className="loading-div"><Loading/></div> : null}
                 <Button 
                     disabled={this.state.status === 'fail' ? true : false}
                     className={"map-submit-btn " + (this.state.status === 'loading' ? ' loading-btn ' : '') + (this.state.status === 'success' ? 'success-btn ' : '') + (this.state.status === 'fail' ? 'fail-btn' : '')} 
