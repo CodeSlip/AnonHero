@@ -67,14 +67,18 @@ button, .btn{
 .loading-btn{
   background: linear-gradient(-45deg, var(--light-blue), #23a6d5, var(--dark-blue));
   background-size: 400% 400%;
-  animation: gradientBG 3s ease infinite;
+  animation: gradientBG 2s ease infinite;
 
 }
 
 .success-btn{
   transition: 1s;
+  background-color: var(--gray)
+
   /* background-color: #4BB543; */
+
 }
+
 
 .fail-btn{
   transition: 1s;

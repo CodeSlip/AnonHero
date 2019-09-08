@@ -17,7 +17,7 @@ class Map extends Component {
             isInLocation: false,
             statusDict: {
                 'default': 'Set Location',
-                'success' : 'Next',
+                'success' : <i className="fas fa-camera"></i>,
                 'fail' : 'Not in Location',
                 'loading': 'Verifying'
             },
@@ -26,8 +26,7 @@ class Map extends Component {
               height: '100%',
               latitude: 42.3792848,
               longitude: -71.1156926,
-            //   latitude: 37.7577,
-            //   longitude: -122.4376,
+              draggable: false,
               zoom: 15
             }
         };
@@ -80,7 +79,6 @@ class Map extends Component {
             // if (unit=="N") { dist = dist * 0.8684 }
             distance = dist;
         }
-        console.log(dist)
 
         return distance
     }
