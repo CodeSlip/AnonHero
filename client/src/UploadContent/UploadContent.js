@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { _getEvent, _createEvent, _createPost } from "../contract";
 import { web3 } from "../contract";
+import './UploadContent.css';
+
+import {Form, Button} from 'reactstrap';
 
 import Web3 from "web3";
 
@@ -24,7 +27,8 @@ class UploadContent extends Component {
       images: [],
       imagesReady: false,
       reload: false,
-      file: null
+      file: null,
+      showFeed: false
     };
     this.handleFileChange = this.handleFileChange.bind(this)
   }
@@ -79,13 +83,14 @@ class UploadContent extends Component {
       holder.append(imgEl)
       const getImgHolder = document.getElementById('img-holder');
       getImgHolder.append(holder)
-      console.log("index", i)
     }
   };
 
   attach = e => {
     let file = document.getElementById("files").files[0];
-    this.setState({ fileName: file.name });
+    console.log(file);
+    this.setState({ fileName: file.name, file: URL.createObjectURL(e.target.files[0]) });
+
     let reader = new FileReader();
     const scope = this;
     reader.onload = async function(e) {
@@ -120,23 +125,34 @@ class UploadContent extends Component {
       await _createPost(mostRecent)
   };
 
+  showFeed = () => {
+    this.setState({
+      showFeed: !this.state.showFeed
+    })
+  }
 
   render() {
     const { imagesReady, images } = this.state;
     console.log("imagesready", imagesReady);
     return (
       <div className="upload-content-view">
-        <img src={this.state.file}/> 
-        <input onChange={e => this.attach(e)} type="file" id="files" />
-        {/* <input onChange={e => this.attach(e)} type="file" id="files" onChange={this.handleFileChange} /> */}
-        <div onClick={this.uploadFile} className="file-button btn" type='button'>Upload</div>
-        {/* <input onClick={this.uploadFile} className="file-button btn" type='button' value='Upload' /> */}
-         
-        
-        <div id="img-holder" className="hide">
+        <Form className="upload-content-form" onSubmit={this.uploadFile}>
+          <h3>Upload Content</h3>
+          <img src={this.state.file}  className="img-upload"/> 
+          {this.state.file ? 
+            <Button onClick={this.uploadFile}  type='submit'>Upload</Button>
+            :
+            <div className="add-file-container">
+              <Button>Add Image</Button>
+              <input onChange={e => this.attach(e)} type="file" id="files" />
+            </div>
+           }
 
+        </Form>
+        <h3>Feed</h3>
+        <Button onClick={this.showFeed} >Show Feed</Button>
+        <div id="img-holder" className={this.state.showFeed ? ' ' : 'hide'} >
         </div>
-     
       </div>
     );
   }

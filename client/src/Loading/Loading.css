@@ -1,0 +1,119 @@
+@keyframes lds-facebook_1 {
+  0% {
+    top: 36px;
+    height: 128px;
+  }
+  50% {
+    top: 60px;
+    height: 80px;
+  }
+  100% {
+    top: 60px;
+    height: 80px;
+  }
+}
+@-webkit-keyframes lds-facebook_1 {
+  0% {
+    top: 36px;
+    height: 128px;
+  }
+  50% {
+    top: 60px;
+    height: 80px;
+  }
+  100% {
+    top: 60px;
+    height: 80px;
+  }
+}
+@keyframes lds-facebook_2 {
+  0% {
+    top: 41.99999999999999px;
+    height: 116.00000000000001px;
+  }
+  50% {
+    top: 60px;
+    height: 80px;
+  }
+  100% {
+    top: 60px;
+    height: 80px;
+  }
+}
+@-webkit-keyframes lds-facebook_2 {
+  0% {
+    top: 41.99999999999999px;
+    height: 116.00000000000001px;
+  }
+  50% {
+    top: 60px;
+    height: 80px;
+  }
+  100% {
+    top: 60px;
+    height: 80px;
+  }
+}
+@keyframes lds-facebook_3 {
+  0% {
+    top: 48px;
+    height: 104px;
+  }
+  50% {
+    top: 60px;
+    height: 80px;
+  }
+  100% {
+    top: 60px;
+    height: 80px;
+  }
+}
+@-webkit-keyframes lds-facebook_3 {
+  0% {
+    top: 48px;
+    height: 104px;
+  }
+  50% {
+    top: 60px;
+    height: 80px;
+  }
+  100% {
+    top: 60px;
+    height: 80px;
+  }
+}
+.lds-facebook {
+  position: relative;
+}
+.lds-facebook div {
+  position: absolute;
+  width: 30px;
+}
+.lds-facebook div:nth-child(1) {
+  left: 35px;
+  background: #31395a;
+  -webkit-animation: lds-facebook_1 2.3s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+  animation: lds-facebook_1 2.3s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+  -webkit-animation-delay: -0.46s;
+  animation-delay: -0.46s;
+}
+.lds-facebook div:nth-child(2) {
+  left: 85px;
+  background: #1d2031;
+  -webkit-animation: lds-facebook_2 2.3s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+  animation: lds-facebook_2 2.3s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+  -webkit-animation-delay: -0.23s;
+  animation-delay: -0.23s;
+}
+.lds-facebook div:nth-child(3) {
+  left: 135px;
+  background: #5c607e;
+  -webkit-animation: lds-facebook_3 2.3s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+  animation: lds-facebook_3 2.3s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.lds-facebook {
+  width: 200px !important;
+  height: 200px !important;
+  -webkit-transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+  transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+}

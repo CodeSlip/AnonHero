@@ -5,6 +5,7 @@ import web3Obj from './helper'
 import UploadContentView from './UploadContent/UploadContent';
 import MapView from './Map/Map';
 import FileUpload from "./Files/FileUpload";
+import Loading from './Loading/Loading';
 
 class App extends React.Component {
   state = {
@@ -13,7 +14,8 @@ class App extends React.Component {
     page:'Map',
     loggedIn: false,
     userLocation: {lat: '', long: ''},
-    distance:''
+    distance:'',
+    loading: false
   }
 
   componentDidMount() {
@@ -43,16 +45,18 @@ class App extends React.Component {
   }
 
   enableTorus = async () => {
-    try {
-      await web3Obj.initialize()
-      this.setStateInfo()
       this.setState({
-        loggedIn: true
+        loading: true
       })
-    } catch (error) {
-      console.error(error)
+      await web3Obj.initialize().then(()=>{
+        this.setState({
+          loggedIn: true
+        })
+        this.setState({
+          loading: false
+        })
+      }).catch((error)=>console.log(error))
     }
-  }
 
   disableTorus = async () => {
     try {
@@ -74,12 +78,11 @@ class App extends React.Component {
         userLat: lat,
         userLong: long
       })
-    }else{
+    } else {
       this.setState({
         onLocation: false
       })
     }
-
   }
 
   uploadContentPage = () => {
@@ -94,30 +97,38 @@ class App extends React.Component {
     if(this.state.page === 'Upload'){
       view = (<UploadContentView />)
     }
-    return (
-      <div className="App">
-        {/* <FileUpload /> */}
-        {this.state.loggedIn === true ? 
-          <div style={{height: '100%'}}> 
-            <div className="page-header">
-              <div className="header"> 
-                <h4>AnonHero | {page} </h4>
-                <Button className='logout-btn' onClick={this.disableTorus}>Logout</Button>
-              </div>
-              <div className="account">{this.state.account ? <p>Account: {this.state.account.slice(0,8)}...</p> : null}</div>
-            </div>
-            {view}
-            </div>
-          :
-          <div className="login-container default-padding">
-            <h1 className="logo">Anon Hero</h1>
+
+    if (this.state.loading == true) {
+      return <div className="login-container default-padding">
             <div>
-              <Button  className="login-btn" onClick={this.enableTorus}>Login</Button>
+              <Loading />
             </div>
           </div>
-        }
-      </div>
-    )
+    } else {
+      return (
+        <div className="App">
+          {this.state.loggedIn === true ? 
+            <div style={{height: '100%'}}> 
+              <div className="page-header">
+                <div className="header"> 
+                  <h4>AnonHero | {page} </h4>
+                  <Button className='logout-btn' onClick={this.disableTorus}>Logout</Button>
+                </div>
+                <div className="account">{this.state.account ? <p>Account: {this.state.account.slice(0,8)}...</p> : null}</div>
+              </div>
+              {view}
+              </div>
+            :
+            <div className="login-container default-padding">
+              <h1 className="logo">Anon Hero</h1>
+              <div>
+                <Button  className="login-btn" onClick={this.enableTorus}>Login</Button>
+              </div>
+            </div>
+          }
+        </div>
+      )
+    }
   }
 }
 
