@@ -19,3 +19,9 @@ cd client
 npm install
 npm run start
 ```
+
+## Usage Notes - SkaleML
+
+To utilize the algorithm we built and deployed to SkaleML, you will probably need to check the status of the Skaled network:
+http://157.245.138.108:2234. It's a very early version of the network and may no longer be up.
+If it's no longer up, you'll be required to deploy all of the contracts in this application to a new SML supported Skale chain. This include the validator.sol, ML model and dataset. You'll receive a predictor location once this is complete, such as: cifar10_resnet, which will be added to the validator.sol.
