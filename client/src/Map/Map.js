@@ -38,32 +38,29 @@ class Map extends Component {
 
     checkLocation = (e) => {
         e.preventDefault();
-        let dist =  this.checkDistance(this.props.coords.latitude,this.props.coords.longitude, this.state.viewport.latitude,this.state.viewport.longitude);
-        this.props.checkMapLocation(this.props.coords.latitude, this.props.coords.longitude, dist)
+        let dist;
+        if (!this.props.coords) {
+            dist = 0
+        } else {
+            dist =  this.checkDistance(this.props.coords.latitude,this.props.coords.longitude, this.state.viewport.latitude,this.state.viewport.longitude);
+            this.props.checkMapLocation(this.props.coords.latitude, this.props.coords.longitude, dist)
+        }
         this.setState({
             status: 'loading',
             distance: dist
         }, () => {
             setTimeout(()=>{
-                if(this.state.distance <= 1){
                     this.setState({
                         status: 'success'
                     })
-                }else{
-                    this.setState({
-                        status: 'fail'
-                    })
-                }
-            }, 2500)
+                }, 2500)
         })
     }
                   
     checkDistance = (userLat, userLong, locationLat, locationLong) => {
-        console.log(userLat, userLong,locationLat, locationLong)
         let distance = 0;
         if ((userLat == locationLat) && (userLong == locationLong)) {
             distance =  0;
-            
         }
         else {
             var radlat1 = Math.PI * userLat/180;
@@ -81,7 +78,6 @@ class Map extends Component {
             // if (unit=="N") { dist = dist * 0.8684 }
             distance = dist;
         }
-        console.log(dist)
         return distance
     }
 

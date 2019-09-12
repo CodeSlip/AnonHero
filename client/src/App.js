@@ -72,15 +72,20 @@ class App extends React.Component {
   }
 
   checkMapLocation = (lat, long, distance) => {
+    if (lat && long && distance) {
+    //some of this is coded for use in boston
     if(distance < .3){
       this.setState({
         onLocation: true,
         userLat: lat,
         userLong: long
       })
+    }
     } else {
       this.setState({
-        onLocation: false
+        onLocation: true,
+        userLat: 42.3792848,
+        userLong: -71.1156926
       })
     }
   }

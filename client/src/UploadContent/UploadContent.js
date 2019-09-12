@@ -3,7 +3,7 @@ import { _getEvent, _createEvent, _createPost, _getPost } from "../contract";
 import { web3 } from "../contract";
 import "./UploadContent.css";
 
-import TwitterBtn from '../twitter/twitterButton';
+import TwitterBtn from '../Twitter/twitterButton';
 
 import { Form, Button } from "reactstrap";
 
@@ -62,21 +62,22 @@ class UploadContent extends Component {
 
   async getEvent() {
     const event = await _getEvent(1);
+    console.log("%cREQUEST FEED OF IMAGES FROM SKALED STORAGE","color: green; font-size: x-large");
 
     let name = event["name"];
     name = web3.utils.toAscii(name);
-    console.log("name", name);
+    console.log("%cname","color: blue", name);
 
     const creator = event["creator"]; // addr (include??)
-    console.log("creator", creator);
+    console.log("%ccreator","color: blue", creator);
 
     let latitude = event["latitude"];
     latitude = web3.utils.toAscii(latitude);
-    console.log("latitude", latitude);
+    console.log("%clatitude","color: blue", latitude);
 
     let longitude = event["longitude"];
     longitude = web3.utils.toAscii(longitude);
-    console.log("longitude", longitude);
+    console.log("%clongitude","color: blue", longitude);
   }
 
   async createEvent() {
@@ -124,6 +125,7 @@ class UploadContent extends Component {
     e.preventDefault();
     if (!this.state.bytesToUpload) return;
     if(!this.state.latitude) return;
+    console.log("%UPLOAD IMAGE TO SKALED","color: green; font-size: x-large");
     console.log("in upload file -  bytes", this.state)
     let privateKey =
       "0xEC6BA7DD9EB64A5BF6336D20E4046E80935BC574EC6F1C4ADF6AA9DA5A286C4C"; // testnet pk
@@ -135,14 +137,13 @@ class UploadContent extends Component {
       this.state.bytesToUpload,
       privateKey
     );
-
     let getMostRecentUploads = await fileStorage.listDirectory(
       account.split("0x")[1]
     );
     console.log("getmostrecent", getMostRecentUploads);
     const mostRecent =
       getMostRecentUploads[getMostRecentUploads.length - 1].storagePath;
-
+  
     const { latitude, longitude } = this.state;
     await _createPost(latitude, longitude, mostRecent);
   };
@@ -153,7 +154,6 @@ class UploadContent extends Component {
       const post = await _getPost(i);
       posts.push(post);
     }
-
     console.log(posts);
   }
 
@@ -193,14 +193,10 @@ class UploadContent extends Component {
               <input onChange={e => this.attach(e)} type="file" id="files" />
             </div>
           )}
-
         </Form>
         <h3>Event Feed</h3>
-        {/* <Button onClick={this.showFeed}>Show Feed</Button> */}
-        <div
-          id="img-holder"
-          // className={this.state.showFeed ? " " : "hide"}
-        ></div>
+
+        <div id="img-holder"></div>
       </div>
     );
   }

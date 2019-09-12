@@ -3,18 +3,22 @@ import AnonAbi from "./contracts/Anon.json";
 import AnonValidateAbi from "./contracts/AnonValidate.json";
 import web3Obj from "./helper";
 console.log("web3obj", web3Obj)
+
+//for the purpose of this application, we've used https://ethboston1.skalenodes.com:10150, 
+//In a production scenario with SML running, we would use the SML endpoint and deploy all contracts to that end-point
 const web3Provider = new Web3.providers.HttpProvider(
   "https://ethboston1.skalenodes.com:10150"
 );
-const web3ProviderB = new Web3.providers.HttpProvider(
-  "157.245.138.108"
-);
 
+// SML endpoint
+// const web3Provider = new Web3.providers.HttpProvider(
+//   "http://157.245.138.108:2234"
+// );
 
 export const web3 = new Web3(web3Provider);
 const Tx = require('ethereumjs-tx');
 const SkaleAnonContract = "0x6F29BA25Fab3d81616A79De20736A58813C6c3E7";
-const SkaleAnonValidateContract = "";
+const SkaleAnonValidateContract = "0x4e7d45384c7878ea463163372fbd78563cbe26bb"; //SML contract deployed on http://157.245.138.108:2234
 
 async function Contract() {
   return await new web3Obj.web3.eth.Contract(AnonAbi.abi, SkaleAnonContract);
@@ -33,7 +37,6 @@ export async function _createEvent() {
   const lat = web3Obj.web3.utils.fromAscii("42.3792848")
   const long = web3Obj.web3.utils.fromAscii("-71.1156926")
   const name = web3Obj.web3.utils.fromAscii("Protest for Justice")
-
   const func = contr.methods.createEvent(lat, long, name).encodeABI();
   web3Obj.web3.eth.getAccounts((err, res) => {
     console.log("res", res)
@@ -68,8 +71,10 @@ export async function _createPost(latitude, longitude, filePath){
         to: SkaleAnonContract,
         data: func
       }, ((error, txHash) => {
-        console.log("error", error)
-        console.log("txhash", txHash)
+        console.log("%Validate image using SkaleML", "color: green; font-size: x-large")
+        console.log("%cUse the validator contract on Skale ML (SML) to validate the uploaded image (input image shape must be: 600, 900, 3), and check uploaded image against image dataset using keras model located on SkaleML: 0xa2061d10e7af547822ad0f5dcfe28b3ce6182b37", "color: blue")
+        console.log("%cAnonHero to receive bool from model and store alongside image & location", "color: yellow")
+        console.log("%cImage should be complete", "color: green; font-size: x-large")
       })
     )
   })
