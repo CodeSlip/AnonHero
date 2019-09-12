@@ -71,10 +71,10 @@ export async function _createPost(latitude, longitude, filePath){
         to: SkaleAnonContract,
         data: func
       }, ((error, txHash) => {
-        console.log("%Validate image using SkaleML", "color: green; font-size: x-large")
+        console.log("%cUpload Image to SkaleML if available", "color: green; font-size: medium")
         console.log("%cUse the validator contract on Skale ML (SML) to validate the uploaded image (input image shape must be: 600, 900, 3), and check uploaded image against image dataset using keras model located on SkaleML: 0xa2061d10e7af547822ad0f5dcfe28b3ce6182b37", "color: blue")
         console.log("%cAnonHero to receive bool from model and store alongside image & location", "color: yellow")
-        console.log("%cImage should be complete", "color: green; font-size: x-large")
+        console.log("%cImage validation and storage complete", "color: green; font-size: medium")
       })
     )
   })
