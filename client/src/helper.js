@@ -13,6 +13,7 @@ const web3Obj = {
     await torus.init()
     await torus.login()
     web3Obj.setweb3(torus.provider)
+    console.log('web3Ibj', web3Obj)
   },
   logout: async function() {
     await torus.logout()

@@ -7,7 +7,7 @@ The purpose of this platform is to help anyone tell their story, and unequivocal
 
 ## Pre-requisites
 Set-up Torus with a custom RPC endpoint: 
-https://ethboston1.skalenodes.com:10150
+https://sip1.skalenodes.com:10040
 
 ## Installation
 

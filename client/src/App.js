@@ -20,6 +20,7 @@ class App extends React.Component {
 
   componentDidMount() {
     const isTorus = sessionStorage.getItem('pageUsingTorus')
+    console.log('istorus', isTorus)
     if (isTorus) {
       web3Obj.initialize().then(() => {
         this.setStateInfo()
@@ -48,7 +49,7 @@ class App extends React.Component {
       this.setState({
         loading: true
       })
-      await web3Obj.initialize().then(()=>{
+      await web3Obj.initialize().then((w3)=>{
         this.setState({
           loggedIn: true
         })
