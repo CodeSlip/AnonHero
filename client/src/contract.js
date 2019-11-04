@@ -7,8 +7,10 @@ console.log("web3obj", web3Obj)
 //for the purpose of this application, we've used https://ethboston1.skalenodes.com:10150, 
 //In a production scenario with SML running, we would use the SML endpoint and deploy all contracts to that end-point
 const web3Provider = new Web3.providers.HttpProvider(
-  " https://sip1.skalenodes.com:10040"
+  // " https://sip1.skalenodes.com:10040"
+  "https://ethboston1.skalenodes.com:10150"
 );
+console.log('web3provider', web3Provider)
 
 // SML endpoint
 // const web3Provider = new Web3.providers.HttpProvider(
